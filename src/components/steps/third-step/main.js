@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import gardenElements from './list-garden-elements';
 
-
-
 export default class Step3 extends Component {
     constructor(props) {
         super(props);
 
     }
+
     render() {
         return (
             <div className="main-wrapper second-step">
@@ -20,7 +19,7 @@ export default class Step3 extends Component {
                 </p>
                 <div className="garden-elements">
                     {gardenElements.gardenElements.map(item =>
-                        <div key={item.objectID} className={item.class}>{item.name}</div>
+                        <div onClick={() => this.props.next()} key={item.objectID} className={item.class}>{item.name}</div>
                     )}
                 </div>
             </div>
