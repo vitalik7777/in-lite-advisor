@@ -1,28 +1,17 @@
-import React, {Component} from 'react';
-import gardenElements from './list-garden-elements';
+import React from 'react';
+import GardenElementsContainer from './gardenElementsContainer';
 
-export default class Step3 extends Component {
-    constructor(props) {
-        super(props);
-
-    }
-
-    render() {
-        return (
-            <div className="main-wrapper second-step">
-                <div className="top-toolbar">
-                    <button className="btn-prev" onClick={() => this.props.previous()}></button>
-                </div>
-                <div className="head-title">Welk onderdeel wil je uitlichten</div>
-                <p>
-                    Je kunt later nag meer onderdelen selecteren.
-                </p>
-                <div className="garden-elements">
-                    {gardenElements.gardenElements.map(item =>
-                        <div onClick={() => this.props.next()} key={item.objectID} className={item.class}>{item.name}</div>
-                    )}
-                </div>
+export const ThirdStep = (props) => {
+    return (
+        <div className="main-wrapper">
+            <div className="top-toolbar">
+                <button className="btn-prev" onClick={() => props.previous()}></button>
             </div>
-        );
-    }
+            <div className="head-title">Welk onderdeel wil je uitlichten</div>
+            <p>
+                Je kunt later nag meer onderdelen selecteren.
+            </p>
+            <GardenElementsContainer {...props}/>
+        </div>
+    );
 }

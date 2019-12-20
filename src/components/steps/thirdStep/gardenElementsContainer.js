@@ -1,28 +1,29 @@
 import React from 'react';
-import T from './users';
+import {GardenElements} from './gardenElements';
 import {connect} from 'react-redux';
 
-import {setUsersAC, unfollowAC, followAC} from '../../redux/usersReducer';
+import {selectGardenElementAC} from '../../../reducer/gardenEelementsReducer';
+
+const GardenElementsContainer = (props) => {
+    return (
+        <Connected {...props}/>
+    )
+};
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users
+        gardenElements: state.gardenElementsStep.gardenElements
     }
 };
+
 let mapDispatchToProps = (dispatch) => {
     return {
-        follow: (userid) => {
-            dispatch(followAC(userid));
+        selectElement: (key) => {
+            dispatch(selectGardenElementAC(key));
         },
-        unfollow: (userid) => {
-            dispatch(unfollowAC(userid));
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users));
-        }
     }
 };
 
-const ThirdStepContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
+const Connected = connect(mapStateToProps, mapDispatchToProps)(GardenElements);
 
-export default ThirdStepContainer;
+export default GardenElementsContainer;

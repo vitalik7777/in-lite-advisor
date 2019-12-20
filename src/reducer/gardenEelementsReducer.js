@@ -27,37 +27,17 @@ let initialState = {
             name: 'Pad',
             class: 'pad'
         }
-    ]
+    ],
+
+    selectedGardenElement: null
 };
 
 const GardenEelementsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FOLLOW: {
+        case 'SELECT-GARDEN-ELEMENT': {
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userid) {
-                        return {...u, followed: true}
-                    }
-                    return u;
-                })
-            }
-        }
-        case UNFOLLOW: {
-            return {
-                ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userid) {
-                        return {...u, followed: false}
-                    }
-                    return u;
-                })
-            }
-        }
-        case SETUSERS: {
-            return {
-                ...state,
-                users: [...state.users, ...action.users]
+                selectedGardenElement: action.key
             }
         }
         default:
@@ -66,11 +46,6 @@ const GardenEelementsReducer = (state = initialState, action) => {
     }
 };
 
-
-export const followAC = (userid) => ({type: FOLLOW, userid});
-
-export const unfollowAC = (userid) => ({type: UNFOLLOW, userid});
-
-export const setUsersAC = (users) => ({type: SETUSERS, users});
+export const selectGardenElementAC = (key) => ({type: SELECT_GARDEN_ELEMENT, key});
 
 export default GardenEelementsReducer;
