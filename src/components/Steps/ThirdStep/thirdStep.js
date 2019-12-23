@@ -1,7 +1,9 @@
 import React from 'react';
+import {withApollo} from "react-apollo";
 import GardenElementsContainer from './gardenElementsContainer';
 
 export const ThirdStep = (props) => {
+    const AppWithClient = withApollo(GardenElementsContainer);
     return (
         <div className="main-wrapper">
             <div className="top-toolbar">
@@ -11,7 +13,7 @@ export const ThirdStep = (props) => {
             <p>
                 Je kunt later nag meer onderdelen selecteren.
             </p>
-            <GardenElementsContainer {...props}/>
+            <AppWithClient {...props}/>
         </div>
     );
 }

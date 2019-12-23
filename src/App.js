@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import StepZilla from './components/steps-resolver/main';
-import Steps from './components/steps/index';
-import {ApolloConsumer} from "react-apollo";
+import Steps from './components/Steps/index';
 
 import {setContext} from 'apollo-link-context';
 import Adapter from './drivers/adapter';

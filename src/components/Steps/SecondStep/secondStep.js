@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../../Button/button';
 
 export const SecondStep = (props) => {
     return (
@@ -12,9 +13,7 @@ export const SecondStep = (props) => {
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen></iframe>
             </div>
-            <div className="toolbar">
-                <button className="btn btn-next" onClick={() => props.next()}>naar de vragen</button>
-            </div>
+            <Button className="btn btn-next" type="button" onClick={() => props.next()}>naar de vragen</Button>
         </div>
     );
 }
