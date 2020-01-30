@@ -14,6 +14,7 @@ const renderBlocks = ({data, error, loading}) => {
         return <div>Fetching Data</div>;
     }
 
+    debugger;
     const items = data.cmsBlocks.items;
 
     if (!Array.isArray(items) || !items.length) {

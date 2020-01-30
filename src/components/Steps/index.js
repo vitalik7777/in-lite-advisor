@@ -1,5 +1,5 @@
 import React from 'react';
-import {FirstStep} from './FirstStep/firstStep';
+import FirstStep from './FirstStep/firstStep';
 import {SecondStep} from './SecondStep/secondStep';
 import {ThirdStep} from './ThirdStep/thirdStep';
 import FirstQuestionsContainer from "./FourthStep/FirstQuestion/firstQuestionsContainer";

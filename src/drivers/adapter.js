@@ -14,23 +14,27 @@ export default class Adapter extends Component {
 
     static apolloCache() {
         const cache = new InMemoryCache();
-        // persistCache({
-        //     cache,
-        //     storage: window.localStorage
-        // });
+
+        persistCache({
+            cache,
+            storage: window.localStorage
+        });
+
         return cache;
     }
 
-    static apolloClient({apiBase, apollo: {cache, link} = {}}) {
+    static apolloClient({ apiBase, apollo: { cache, link } = {} }) {
         return new ApolloClient({
-            link: Adapter.apolloLink(apiBase),
-            cache: Adapter.apolloCache(),
+            link: link || Adapter.apolloLink(apiBase),
+            cache: cache || Adapter.apolloCache()
         });
     }
 
     constructor(props) {
         super(props);
-        this.apolloClient = Adapter.apolloClient(this.props);
+        const apollo = this.props.apollo || {};
+        this.apolloClient =
+            apollo.client || Adapter.apolloClient(this.props);
     }
 
     render() {
