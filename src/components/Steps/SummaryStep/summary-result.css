@@ -1,0 +1,27 @@
+.summary-step {
+    position: relative;
+}
+
+.summary-step .top-toolbar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.products-result {
+
+}
+
+.steps-wrapper.Step5 {
+    height: auto;
+    position: relative;
+    margin: 0 auto;
+    left: 0;
+    top: 0;
+    transform: translate(0, 0);
+}
+
+.steps-wrapper.Step5  .progress-bar {
+    display: none;
+}

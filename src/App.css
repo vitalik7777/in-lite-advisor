@@ -24,32 +24,111 @@ body {
 .in-lite-advisor {
     background: url('./media/main-image.png') no-repeat;
     background-size: cover;
-    height: 100%;
     position: relative;
+    height: 100%;
+    background-attachment: fixed;
 }
 
 .in-lite-advisor .main-wrapper {
-    max-width: 800px;
-    min-height: 500px;
-    width: 100%;
+
+}
+
+.steps-wrapper {
+    height: 90%;
+    width: 90%;
     background: #fff;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    transition: 0.7s;
+    overflow: hidden;
+}
+
+.steps-wrapper.preview-step {
+    width: 800px;
+    height: 500px;
+}
+
+.steps-wrapper .main-wrapper {
+
+}
+
+.steps-wrapper .animation-area {
+    opacity: 0;
+}
+
+.steps-wrapper:not(.preview-step) .animation-area {
+    height: 655px;
+}
+
+.steps-wrapper.FirstStep .animation-area.ready {
+    animation: fadeinFistStep 0.5s ease-in forwards;
+    animation-delay: 0.4s;
+}
+
+.steps-wrapper.SecondStep .animation-area.ready {
+    animation: fadein 0.7s ease-in forwards;
+    animation-delay: 0.6s;
+}
+
+.steps-wrapper.ThirdStep .animation-area {
+    animation: fadein 0.7s ease-in forwards;
+    animation-delay: 0.6s;
+}
+
+.steps-wrapper.FirstQuestion .animation-area {
+    animation: fadein 0.7s ease-in forwards;
+    animation-delay: 0.6s;
+}
+
+.steps-wrapper.SecondQuestion .animation-area {
+    animation: fadein 0.7s ease-in forwards;
+    animation-delay: 0.6s;
+}
+
+.steps-wrapper.ThirdQuestion .animation-area {
+    animation: fadein 0.7s ease-in forwards;
+    animation-delay: 0.6s;
+}
+
+.steps-wrapper .progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+}
+
+.steps-wrapper .progress-bar li {
+    height: 15px;
+    width: 0;
+    background: rgba(176, 194, 139, 1);
+}
+
+.steps-wrapper .progress-bar li:first-child {
+    display: none;
+}
+
+.steps-wrapper .progress-bar li.progerss-bar-done {
+    transition: 0.5s;
+    width: 14.87%;
 }
 
 .in-lite-advisor .main-wrapper.second-step {
-    max-width: 90%;
-    min-height: 90%;
+
 }
 
 .main-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     text-align: center;
     padding: 0 10%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
 }
 
 .main-wrapper p {
@@ -92,4 +171,81 @@ body {
     width: 90px;
     height: 16px;
     background-size: 100%;
+}
+
+.embed-container {
+
+}
+
+.embed-container iframe, .embed-container object, .embed-container embed {
+
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeinFistStep {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/**Loading spinner**/
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -25px 0 0 -25px;
+}
+
+.spinner .spinner-text {
+    position: absolute;
+    bottom: -15px;
+    font-size: 13px;
+}
+
+.double-bounce1, .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #8db8a9;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+    animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+@keyframes sk-bounce {
+    0%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    }
+    50% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
 }

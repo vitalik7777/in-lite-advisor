@@ -10,7 +10,9 @@ const QuestionWrapper = (props) => {
             <div className="top-toolbar">
                 <button className="btn-prev" onClick={() => props.previous()}></button>
             </div>
-            <Question {...props} attributes={question.questions[props.index]}/>
+            <div className="animation-area">
+                <Question {...props} attributes={question.questions[props.index]}/>
+            </div>
         </div>
     )
 }

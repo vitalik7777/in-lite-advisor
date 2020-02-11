@@ -1,19 +1,27 @@
 import React from 'react';
 import Button from '../../Button/button';
+import CmsBlockContainer from '../../CmsBlock/cmsBlockContainer';
+import LoadingSpinner from "../../LoadingSpinner/loadingSpinner";
 
-export const SecondStep = (props) => {
+const SecondStep = (props) => {
+    let ready = !props.isFetching ? 'ready' : '';
+
     return (
-        <div className="main-wrapper second-step">
+        <div className="main-wrapper">
+            {props.isFetching ? <LoadingSpinner text={props.t('Loading...')}/> : ''}
+
             <div className="top-toolbar">
                 <button className="btn-prev" onClick={() => props.previous()}></button>
             </div>
-            <div className="head-title">Hoe in-lite werkt</div>
-            <div className="video-content">
-                <iframe width="100%" height="600" src="https://www.youtube.com/embed/lJd_TdXavy8" frameBorder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen></iframe>
+            <div className={"animation-area " + ready}>
+                <div className="head-title">Hoe in-lite werkt</div>
+                <div className="video-content">
+                    <CmsBlockContainer identifiers="product_advisor_video"/>
+                </div>
+                <Button className="btn btn-next" type="button" onClick={() => props.next()}>naar de vragen</Button>
             </div>
-            <Button className="btn btn-next" type="button" onClick={() => props.next()}>naar de vragen</Button>
         </div>
     );
-}
+};
+
+export default SecondStep;

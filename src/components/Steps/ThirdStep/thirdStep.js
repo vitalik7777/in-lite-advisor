@@ -9,11 +9,13 @@ export const ThirdStep = (props) => {
             <div className="top-toolbar">
                 <button className="btn-prev" onClick={() => props.previous()}></button>
             </div>
-            <div className="head-title">Welk onderdeel wil je uitlichten</div>
-            <p>
-                Je kunt later nag meer onderdelen selecteren.
-            </p>
-            <AppWithClient {...props}/>
+            <div className="animation-area">
+                <div className="head-title">Welk onderdeel wil je uitlichten</div>
+                <p>
+                    Je kunt later nag meer onderdelen selecteren.
+                </p>
+                <AppWithClient {...props}/>
+            </div>
         </div>
     );
 }

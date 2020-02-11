@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Promise from 'promise';
 
-export default class StepZilla extends Component {
+export default class StepResolver extends Component {
     constructor(props) {
         super(props);
 
@@ -219,7 +219,7 @@ export default class StepZilla extends Component {
                 // we are moving backwards in steps, in this case dont validate as it means the user is not commiting to "save"
                 proceed = true;
             } else if (this.isStepAtIndexHOCValidationBased(this.state.compState)) {
-                // the user is using a higer order component (HOC) for validation (e.g react-validation-mixin), this wraps the StepZilla steps as a HOC,
+                // the user is using a higer order component (HOC) for validation (e.g react-validation-mixin), this wraps the StepResolver steps as a HOC,
                 // so use hocValidationAppliedTo to determine if this step needs the aync validation as per react-validation-mixin interface
                 proceed = this.refs.activeComponent.refs.component.isValidated();
             } else if (Object.keys(this.refs).length === 0 || typeof this.refs.activeComponent.isValidated === 'undefined') {
@@ -258,14 +258,14 @@ export default class StepZilla extends Component {
     // render the steps as stepsNavigation
     renderSteps() {
         return this.props.steps.map((s, i) => (
-            <li className={this.getClassName('progtrckr', i)} onClick={(evt) => {
+            <li className={this.getClassName('progerss-bar', i)} onClick={(evt) => {
                 this.jumpToStep(evt);
             }} key={i} value={i}>
             </li>
         ));
     }
 
-    // main render of stepzilla container
+    // main render of StepResolver container
     render() {
         // clone the step component dynamically and tag it as activeComponent so we can validate it on next. also bind the jumpToStep piping method
         const cloneExtensions = {
@@ -291,11 +291,15 @@ export default class StepZilla extends Component {
 
         const compToRender = React.cloneElement(componentPointer, cloneExtensions);
 
+        let firstStep = this.state.compState === 0 ? 'preview-step' : '';
+
+        let activeStep = this.props.steps[this.state.compState].name;
+
         return (
-            <div className="multi-step">
+            <div className={"steps-wrapper " + firstStep + " " + activeStep}>
                 {compToRender}
 
-                <ul className="progtrckr">
+                <ul className="progress-bar">
                     {this.renderSteps()}
                 </ul>
 
@@ -304,7 +308,7 @@ export default class StepZilla extends Component {
     }
 }
 
-StepZilla.defaultProps = {
+StepResolver.defaultProps = {
     stepsNavigation: true,
     dontValidate: false,
     preventEnterSubmission: false,
@@ -316,7 +320,7 @@ StepZilla.defaultProps = {
     hocValidationAppliedTo: []
 };
 
-StepZilla.propTypes = {
+StepResolver.propTypes = {
     steps: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.oneOfType([
             PropTypes.string,

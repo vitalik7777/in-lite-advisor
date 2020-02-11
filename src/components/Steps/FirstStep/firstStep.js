@@ -1,15 +1,21 @@
 import React from 'react';
-import CmsBlockGroup from '../../CmsBlock/cmsBlock';
+import CmsBlockContainer from '../../CmsBlock/cmsBlockContainer';
 import Button from '../../Button/button';
-import {withNamespaces} from 'react-i18next';
+import LoadingSpinner from '../../LoadingSpinner/loadingSpinner';
 
 const FirstStep = (props) => {
+    let ready = !props.isFetching ? 'ready' : '';
     return (
         <div className="main-wrapper">
-            <CmsBlockGroup identifiers="advisor_first_step_content"/>
-            <Button className="btn btn-next" type="button" onClick={() => props.next()}>{props.t('vetal')}</Button>
+            {props.isFetching ? <LoadingSpinner text={props.t('Loading...')}/> : ''}
+
+            <div className={"animation-area " + ready}>
+                <CmsBlockContainer identifiers="advisor_first_step_content"/>
+                <Button className="btn btn-next" type="button"
+                        onClick={() => props.next()}>{props.t('vetal')}</Button>
+            </div>
         </div>
     );
 };
 
-export default withNamespaces()(FirstStep);
+export default FirstStep;
