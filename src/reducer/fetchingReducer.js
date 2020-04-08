@@ -6,7 +6,7 @@ let initialState = {
 
 const fetchingReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'TOGGLE-IS-FETCHING': {
+        case TOGGLE_IS_FETCHING: {
             return {
                 ...state, isFetching: action.isFetching
             }
