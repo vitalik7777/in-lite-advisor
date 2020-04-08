@@ -12,6 +12,8 @@
     "apollo-client": "^2.6.8",
     "apollo-link-context": "^1.0.19",
     "apollo-link-http": "^1.5.16",
+    "configure": "0.0.1",
+    "csv": "^0.3.7",
     "graphql": "^14.6.0",
     "graphql.macro": "^1.4.2",
     "i18next": "^19.1.0",
@@ -27,7 +29,8 @@
     "react-scripts": "3.3.0",
     "react-slick": "^0.25.2",
     "reactjs-popup": "^1.5.0",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

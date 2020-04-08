@@ -1,50 +1,39 @@
-import React from 'react';
-import {GardenElements} from './gardenElements';
+import React, {Suspense} from 'react';
 import {connect} from 'react-redux';
-import {loader} from "graphql.macro";
-import {selectGardenElement, setQuestions} from '../../../reducer/gardenEelementsReducer';
+import {withNamespaces} from 'react-i18next';
+import {withApollo} from "react-apollo";
+import GardenElementsWrapper from './gardenElementWrapper';
+import {
+    selectGardenElement,
+    setGardenElements,
+    getAllTree
+} from '../../../reducer/gardenEelementsReducer';
 
-const getAttributesData = loader('../../../queries/getCustomAttributesData.graphql');
+const GardenElements = React.lazy(() => import('./gardenElements'));
 
-class GardenElementsContainer extends React.Component {
-    getAttrubutes = (id) => {
-        let attribute = this.props.attributesGroupe.find(item => item.id === id);
 
-        let [code1 = '', code2 = '', code3 = ''] = attribute.attributes;
-
-        this.props.client.query({
-            query: getAttributesData,
-            variables: {
-                "code": code1,
-                "code2": code2,
-                "code3": code3,
-                "entity": "4"
-            }
-        }).then((data) => {
-            this.props.setQuestions(id, data.data.customAttributeMetadata.items);
-            this.props.next()
-        }).catch((err) => {
-            console.log('catch', err)
-        });
-    };
+class GardenElementsContainerWithNamespaces extends React.Component {
+    componentDidMount() {
+        this.props.getAllTree(this.props.client);
+    }
 
     render() {
-        return <GardenElements
-            {...this.props}
-            getAttrubutes={this.getAttrubutes}
-        />
+        return <GardenElementsWrapper {...this.props}/>
     }
 }
 
 let mapStateToProps = (state) => {
     return {
         gardenElements: state.gardenElementsStep.gardenElements,
-        attributesGroupe: state.gardenElementsStep.attributesGroupe,
-        questions: state.gardenElementsStep.questions,
+        isFetching: state.fetching.isFetching,
     }
 };
+const AppWithClient = withApollo(GardenElementsContainerWithNamespaces);
+
+const GardenElementsContainer = withNamespaces()(AppWithClient);
 
 export default connect(mapStateToProps, {
     selectGardenElement,
-    setQuestions
+    setGardenElements,
+    getAllTree
 })(GardenElementsContainer);

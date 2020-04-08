@@ -5,6 +5,7 @@ import LoadingSpinner from '../../LoadingSpinner/loadingSpinner';
 
 const FirstStep = (props) => {
     let ready = !props.isFetching ? 'ready' : '';
+
     return (
         <div className="main-wrapper">
             {props.isFetching ? <LoadingSpinner text={props.t('Loading...')}/> : ''}
@@ -12,7 +13,7 @@ const FirstStep = (props) => {
             <div className={"animation-area " + ready}>
                 <CmsBlockContainer identifiers="advisor_first_step_content"/>
                 <Button className="btn btn-next" type="button"
-                        onClick={() => props.next()}>{props.t('vetal')}</Button>
+                        onClick={() => props.next()}>{props.t('get started')}</Button>
             </div>
         </div>
     );

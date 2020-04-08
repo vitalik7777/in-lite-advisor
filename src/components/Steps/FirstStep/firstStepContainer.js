@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import FirstStep from './firstStep';
 import {withNamespaces} from 'react-i18next';
 
-const FirstStepContainerWithNamespaces = (props) => {
+const FirstStepContainer = (props) => {
     return (
         <FirstStep {...props}/>
     )
@@ -15,6 +15,6 @@ let mapStateToProps = (state) => {
     }
 };
 
-const FirstStepContainer = withNamespaces()(FirstStepContainerWithNamespaces);
+const firstStepContainer = withNamespaces()(FirstStepContainer);
 
-export default connect(mapStateToProps, {})(FirstStepContainer);
+export default connect(mapStateToProps, {})(firstStepContainer);

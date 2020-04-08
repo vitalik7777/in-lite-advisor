@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Promise from 'promise';
 
 export default class StepResolver extends Component {
     constructor(props) {
@@ -13,24 +12,8 @@ export default class StepResolver extends Component {
 
         // if user did not give a custom nextTextOnFinalActionStep, the nextButtonText becomes the default
         this.nextTextOnFinalActionStep = (this.props.nextTextOnFinalActionStep) ? this.props.nextTextOnFinalActionStep : this.props.nextButtonText;
-
-        this.applyValidationFlagsToSteps();
     }
 
-    // extend the "steps" array with flags to indicate if they have been validated
-    applyValidationFlagsToSteps() {
-        this.props.steps.map((i, idx) => {
-            if (this.props.dontValidate) {
-                i.validated = true;
-            } else {
-                // check if isValidated was exposed in the step, if yes then set initial state as not validated (false) or vice versa
-                // if HOCValidation is used for the step then mark it as "requires to be validated. i.e. false"
-                i.validated = i.component.type && i.component.type.prototype && i.component.type.prototype.isValidated && this.isStepAtIndexHOCValidationBased(idx) ? false : true;
-            }
-
-            return i;
-        });
-    }
 
     // update the header nav states via classes so they can be styled via css
     getNavStates(indx, length) {
@@ -49,29 +32,6 @@ export default class StepResolver extends Component {
         return {current: indx, styles};
     }
 
-    getPrevNextBtnLayout(currentStep) {
-        // first set default values
-        let showPreviousBtn = true;
-        let showNextBtn = true;
-        let nextStepText = this.props.nextButtonText;
-
-        // first step hide previous btn
-        if (currentStep === 0) {
-            showPreviousBtn = false;
-        }
-
-        // second to last step change next btn text if supplied as props
-        if (currentStep === this.props.steps.length - 2) {
-            nextStepText = this.props.nextTextOnFinalActionStep || nextStepText;
-        }
-
-
-        return {
-            showPreviousBtn,
-            showNextBtn,
-            nextStepText
-        };
-    }
 
     // which step are we in?
     checkNavState(nextStep) {
@@ -107,93 +67,12 @@ export default class StepResolver extends Component {
 
             // evt is a react event so we need to persist it as we deal with aync promises which nullifies these events (https://facebook.github.io/react/docs/events.html#event-pooling)
             evt.persist();
-
-            const movingBack = evt.target.value < this.state.compState; // are we trying to move back or front?
-            let passThroughStepsNotValid = false; // if we are jumping forward, only allow that if inbetween steps are all validated. This flag informs the logic...
-            let proceed = false; // flag on if we should move on
-
-            this.abstractStepMoveAllowedToPromise(movingBack)
-                .then((valid = true) => {
-                    // validation was a success (promise or sync validation). In it was a Promise's resolve()
-                    // ... then proceed will be undefined, so make it true. Or else 'proceed' will carry the true/false value from sync
-                    proceed = valid;
-
-                    if (!movingBack) {
-                        this.updateStepValidationFlag(proceed);
-                    }
-
-                    if (proceed) {
-                        if (!movingBack) {
-                            // looks like we are moving forward, 'reduce' a new array of step>validated values we need to check and
-                            // ... 'some' that to get a decision on if we should allow moving forward
-                            passThroughStepsNotValid = this.props.steps
-                                .reduce((a, c, i) => {
-                                    if (i >= this.state.compState && i < evt.target.value) {
-                                        a.push(c.validated);
-                                    }
-                                    return a;
-                                }, [])
-                                .some((c) => {
-                                    return c === false;
-                                });
-                        }
-                    }
-                })
-                .catch(() => {
-                    // Promise based validation was a fail (i.e reject())
-                    if (!movingBack) {
-                        this.updateStepValidationFlag(false);
-                    }
-                })
-                .then(() => {
-                    // this is like finally(), executes if error no no error
-                    if (proceed && !passThroughStepsNotValid) {
-                        if (evt.target.value === (this.props.steps.length - 1)
-                            && this.state.compState === (this.props.steps.length - 1)) {
-                            this.setNavState(this.props.steps.length);
-                        } else {
-                            this.setNavState(evt.target.value);
-                        }
-                    }
-                })
-                .catch(e => {
-                    if (e) {
-                        // see note below called "CatchRethrowing"
-                        // ... plus the finally then() above is what throws the JS Error so we need to catch that here specifically
-                        setTimeout(() => {
-                            throw e;
-                        });
-                    }
-                });
         }
     }
 
     // move next via next button
     next() {
-        this.abstractStepMoveAllowedToPromise()
-            .then((proceed = true) => {
-                // validation was a success (promise or sync validation). In it was a Promise's resolve() then proceed will be undefined,
-                // ... so make it true. Or else 'proceed' will carry the true/false value from sync validation
-                this.updateStepValidationFlag(proceed);
-
-                if (proceed) {
-                    this.setNavState(this.state.compState + 1);
-                }
-            })
-            .catch((e) => {
-                if (e) {
-                    // CatchRethrowing: as we wrap StepMoveAllowed() to resolve as a Promise, the then() is invoked and the next React Component is loaded.
-                    // ... during the render, if there are JS errors thrown (e.g. ReferenceError) it gets swallowed by the Promise library and comes in here (catch)
-                    // ... so we need to rethrow it outside the execution stack so it behaves like a notmal JS error (i.e. halts and prints to console)
-                    //
-                    setTimeout(() => {
-                        throw e;
-                    });
-                }
-
-                // Promise based validation was a fail (i.e reject())
-                this.updateStepValidationFlag(false);
-            });
+        this.setNavState(this.state.compState + 1);
     }
 
     // move behind via previous button
@@ -203,45 +82,6 @@ export default class StepResolver extends Component {
         }
     }
 
-    // update step's validation flag
-    updateStepValidationFlag(val = true) {
-        this.props.steps[this.state.compState].validated = val; // note: if a step component returns 'underfined' then treat as "true".
-    }
-
-    // are we allowed to move forward? via the next button or via jumpToStep?
-    stepMoveAllowed(skipValidationExecution = false) {
-        let proceed = false;
-
-        if (this.props.dontValidate) {
-            proceed = true;
-        } else {
-            if (skipValidationExecution) {
-                // we are moving backwards in steps, in this case dont validate as it means the user is not commiting to "save"
-                proceed = true;
-            } else if (this.isStepAtIndexHOCValidationBased(this.state.compState)) {
-                // the user is using a higer order component (HOC) for validation (e.g react-validation-mixin), this wraps the StepResolver steps as a HOC,
-                // so use hocValidationAppliedTo to determine if this step needs the aync validation as per react-validation-mixin interface
-                proceed = this.refs.activeComponent.refs.component.isValidated();
-            } else if (Object.keys(this.refs).length === 0 || typeof this.refs.activeComponent.isValidated === 'undefined') {
-                // if its a form component, it should have implemeted a public isValidated class (also pure componenets wont even have refs - i.e. a empty object). If not then continue
-                proceed = true;
-            } else {
-                // user is moving forward in steps, invoke validation as its available
-                proceed = this.refs.activeComponent.isValidated();
-            }
-        }
-
-        return proceed;
-    }
-
-    isStepAtIndexHOCValidationBased(stepIndex) {
-        return (this.props.hocValidationAppliedTo.length > 0 && this.props.hocValidationAppliedTo.indexOf(stepIndex) > -1);
-    }
-
-    // a validation method is each step can be sync or async (Promise based), this utility abstracts the wrapper stepMoveAllowed to be Promise driven regardless of validation return type
-    abstractStepMoveAllowedToPromise(movingBack) {
-        return Promise.resolve(this.stepMoveAllowed(movingBack));
-    }
 
     // get the classmame of steps
     getClassName(className, i) {
@@ -277,7 +117,9 @@ export default class StepResolver extends Component {
             },
             previous: () => {
                 this.previous();
-            }
+            },
+            steps: this.props.steps,
+            activeStep: this.state.compState
         };
 
         const componentPointer = this.props.steps[this.state.compState].component;
@@ -289,20 +131,22 @@ export default class StepResolver extends Component {
             cloneExtensions.ref = 'activeComponent';
         }
 
+
         const compToRender = React.cloneElement(componentPointer, cloneExtensions);
 
-        let firstStep = this.state.compState === 0 ? 'preview-step' : '';
+        let firstStep = this.state.compState === 0 ? ' preview-step' : '';
+        let lastStep = this.props.steps[this.state.compState].name === this.props.steps.slice(-1).pop().name ? ' last-step' : '';
 
         let activeStep = this.props.steps[this.state.compState].name;
 
         return (
-            <div className={"steps-wrapper " + firstStep + " " + activeStep}>
-                {compToRender}
-
-                <ul className="progress-bar">
-                    {this.renderSteps()}
-                </ul>
-
+            <div className={"in-lite-advisor" + lastStep}>
+                <div className={"steps-wrapper" + firstStep + " " + activeStep}>
+                    {compToRender}
+                    <ul className="progress-bar">
+                        {this.renderSteps()}
+                    </ul>
+                </div>
             </div>
         );
     }
@@ -310,14 +154,12 @@ export default class StepResolver extends Component {
 
 StepResolver.defaultProps = {
     stepsNavigation: true,
-    dontValidate: false,
     preventEnterSubmission: false,
     startAtStep: 0,
     nextButtonText: 'Next',
     nextButtonCls: 'btn btn-prev btn-primary btn-lg pull-right',
     backButtonText: 'Previous',
     backButtonCls: 'btn btn-next btn-primary btn-lg pull-left',
-    hocValidationAppliedTo: []
 };
 
 StepResolver.propTypes = {
@@ -329,13 +171,11 @@ StepResolver.propTypes = {
         component: PropTypes.element.isRequired
     })).isRequired,
     stepsNavigation: PropTypes.bool,
-    dontValidate: PropTypes.bool,
     preventEnterSubmission: PropTypes.bool,
     startAtStep: PropTypes.number,
     nextButtonText: PropTypes.string,
     nextButtonCls: PropTypes.string,
     backButtonCls: PropTypes.string,
     backButtonText: PropTypes.string,
-    hocValidationAppliedTo: PropTypes.array,
     onStepChange: PropTypes.func
 };

@@ -1,73 +1,29 @@
+import {getAllTreeAPI} from '../api/api';
+
 const SELECT_GARDEN_ELEMENT = 'SELECT-GARDEN-ELEMENT';
-const SET_QUESTIONS = 'SET-QUESTIONS';
+const SET_GARDEN_ELEMENT = 'SET-GARDEN-ELEMENT';
+
 
 let initialState = {
-    gardenElements: [
-        {
-            id: 1,
-            name: 'Boom',
-            class: 'boom'
-        },
-        {
-            id: 2,
-            name: 'Terras',
-            class: 'terrace'
-        },
-        {
-            id: 3,
-            name: 'Vidjver',
-            class: 'pond'
-        },
-        {
-            id: 4,
-            name: 'Schutting',
-            class: 'fence'
-        },
-        {
-            id: 5,
-            name: 'Pad',
-            class: 'pad'
-        }
-    ],
 
-    attributesGroupe: [
-        {
-            id: 1,
-            attributes: ['color', 'custom_advisor_attribute', "custome_test2"],
-        },
-        {
-            id: 2,
-            attributes: ['custom_advisor_attribute', 'color', 'custome_test2'],
-        },
-        {
-            id: 3,
-            attributes: ['custom_advisor_attribute', 'color', 'color'],
-        }
-    ],
-
-    questions: [],
+    gardenElements: [],
 
     selectedGardenElement: null
 };
 
 const GardenEelementsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SELECT-GARDEN-ELEMENT': {
+        case SELECT_GARDEN_ELEMENT: {
             return {
                 ...state,
-                selectedGardenElement: action.key
+                selectedGardenElement: action.id
             }
         }
-        case 'SET-QUESTIONS': {
+        case SET_GARDEN_ELEMENT: {
+            let firstLevel = action.gardenElementTree.filter(item => item.children_data.length > 0);
             return {
                 ...state,
-                questions: [
-                    ...state.questions,
-                    {
-                        selectedGardenElement: action.selectedElement,
-                        questions: {...action.questions}
-                    }
-                ]
+                gardenElements: firstLevel.filter(item => item.children_data[0].children_data.length > 0)
             }
         }
         default:
@@ -76,7 +32,17 @@ const GardenEelementsReducer = (state = initialState, action) => {
     }
 };
 
-export const selectGardenElement = (key) => ({type: SELECT_GARDEN_ELEMENT, key});
-export const setQuestions = (selectedElement, questions) => ({type: SET_QUESTIONS, selectedElement, questions});
+export const selectGardenElement = (id) => ({type: SELECT_GARDEN_ELEMENT, id});
+export const setGardenElements = (gardenElementTree) => ({type: SET_GARDEN_ELEMENT, gardenElementTree});
+
+export const getAllTree = (client) => {
+    return (dispatch) => {
+        getAllTreeAPI(client).then((data) => {
+            dispatch(setGardenElements(JSON.parse(data.adviserData).children_data));
+        }).catch((err) => {
+            console.log('catch', err)
+        });
+    }
+};
 
 export default GardenEelementsReducer;

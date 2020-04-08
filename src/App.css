@@ -11,14 +11,35 @@ body,
 }
 
 @font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
+    font-family: 'Mont';
+    src: url('./media/fonts/Mont-Regular.woff2') format('woff2'), url('./media/fonts/Mont-Regular.woff') format('woff');
+    font-display: swap;
     font-weight: 400;
-    src: local('Ubuntu'), url(http://example.com/fonts/ubuntu.woff) format('woff');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Mont';
+    src: url('./media/fonts/Mont-Bold.woff2') format('woff2'), url('./media/fonts/Mont-Bold.woff') format('woff');
+    font-display: swap;
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Mont';
+    src: url('./media/fonts/Mont-Heavy.woff2') format('woff2'), url('./media/fonts/Mont-Heavy.woff') format('woff');
+    font-display: swap;
+    font-weight: 900;
+    font-style: normal;
 }
 
 body {
-    font-family: Ubuntu, "times new roman", times, roman, serif;
+    font-family: 'Mont', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    font-size: 16px
 }
 
 .in-lite-advisor {
@@ -27,27 +48,34 @@ body {
     position: relative;
     height: 100%;
     background-attachment: fixed;
-}
-
-.in-lite-advisor .main-wrapper {
-
+    display: flex;
+    justify-content: center;
+    animation: slideInUp 0.7s cubic-bezier(.02,.46,.25,.83) forwards;
 }
 
 .steps-wrapper {
-    height: 90%;
-    width: 90%;
+    height: 700px;
+    width: 1000px;
     background: #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: 0.7s;
+    position: relative;
+    margin: auto;
     overflow: hidden;
 }
 
 .steps-wrapper.preview-step {
     width: 800px;
     height: 500px;
+    opacity: 0;
+    animation: slideInUp 0.7s cubic-bezier(.02,.46,.25,.83) forwards;
+    animation-delay: 0.7s;
+}
+
+.steps-wrapper.preview-step .btn {
+    margin-top: 35px;
+}
+
+.steps-wrapper.SecondStep {
+    transition: all 0.7s;
 }
 
 .steps-wrapper .main-wrapper {
@@ -59,12 +87,12 @@ body {
 }
 
 .steps-wrapper:not(.preview-step) .animation-area {
-    height: 655px;
+
 }
 
 .steps-wrapper.FirstStep .animation-area.ready {
-    animation: fadeinFistStep 0.5s ease-in forwards;
-    animation-delay: 0.4s;
+    animation: slideInUp 0.7s cubic-bezier(.02,.46,.25,.83) forwards;
+    animation-delay: 1.4s;
 }
 
 .steps-wrapper.SecondStep .animation-area.ready {
@@ -72,7 +100,7 @@ body {
     animation-delay: 0.6s;
 }
 
-.steps-wrapper.ThirdStep .animation-area {
+.steps-wrapper.ThirdStep .animation-area.ready {
     animation: fadein 0.7s ease-in forwards;
     animation-delay: 0.6s;
 }
@@ -108,39 +136,33 @@ body {
     background: rgba(176, 194, 139, 1);
 }
 
-.steps-wrapper .progress-bar li:first-child {
+.steps-wrapper .progress-bar li:first-child,
+.steps-wrapper .progress-bar li:last-child {
     display: none;
 }
 
 .steps-wrapper .progress-bar li.progerss-bar-done {
     transition: 0.5s;
-    width: 14.87%;
+    width: 20%;
 }
 
 .in-lite-advisor .main-wrapper.second-step {
 
 }
 
-.main-wrapper {
-    text-align: center;
-    padding: 0 10%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-}
+
 
 .main-wrapper p {
-    font-size: 15px;
+
 }
 
 .main-wrapper .head-title {
-    font-size: 50px;
+    font-size: 46px;
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 900;
     letter-spacing: 2px;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
+    line-height: 1.25;
 }
 
 .main-wrapper .toolbar {
@@ -159,6 +181,10 @@ body {
 
 .top-toolbar {
     text-align: left;
+    position: absolute;
+    left: 50px;
+    top: 50px;
+    z-index: 5;
 }
 
 .main-wrapper .btn-prev {
@@ -166,7 +192,6 @@ body {
     text-transform: uppercase;
     font-weight: bold;
     cursor: pointer;
-    margin-left: -90px;
     background: url("./media/terug.png") no-repeat;
     width: 90px;
     height: 16px;
@@ -180,6 +205,87 @@ body {
 .embed-container iframe, .embed-container object, .embed-container embed {
 
 }
+
+.main-wrapper {
+    text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+    .main-wrapper {
+        text-align: center;
+        padding: 0 10%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+}
+
+@media screen and (max-width: 1025px) {
+    .in-lite-advisor {
+        padding: 40px;
+    }
+
+    .overlap-modal,
+    .steps-wrapper.Step5:after {
+        left: -40px;
+        right: -40px;
+        top: -40px;
+        bottom: -40px;
+    }
+
+    .modal {
+        max-width: 600px;
+    }
+}
+
+@media screen and (max-width: 1023px) {
+    .main-wrapper .head-title {
+        font-size: 34px;
+        margin-bottom: 25px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    body {
+        font-size: 14px;
+    }
+
+    .top-toolbar {
+        left: 20px;
+        top: 25px;
+    }
+
+    .in-lite-advisor {
+        padding: 15px;
+    }
+
+    .main-wrapper {
+        display: table;
+        height: 100%;
+        width: 100%;
+        padding: 60px 15px 30px 15px;
+    }
+
+    .main-wrapper .animation-area {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .main-wrapper .head-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+
+    .steps-wrapper {
+        height: 100%;
+    }
+
+}
+
+/**animation**/
 
 @keyframes fadein {
     0% {
@@ -247,5 +353,17 @@ body {
     50% {
         transform: scale(1.0);
         -webkit-transform: scale(1.0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 80px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
     }
 }

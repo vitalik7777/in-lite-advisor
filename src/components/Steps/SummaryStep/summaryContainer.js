@@ -4,53 +4,9 @@ import Step5 from './main';
 import SummaryPopUpContent from './summaryPopUp/summaryPopUpContent';
 import {withNamespaces} from 'react-i18next';
 import {setSummaryResult} from '../../../reducer/summaryReducer';
-import gql from 'graphql-tag';
 import PopUp from '../../PopUp/popUp';
-
-
-const setProductsResult = (props) => {
-    const GET_PRODUCTS = gql`
-        {
-            productDetail: products(filter: {
-            ${props.selectedValue[0].attribute}: {eq: "${props.selectedValue[0].vale}"},
-            ${props.selectedValue[1].attribute}: {eq: "${props.selectedValue[1].vale}"},
-            ${props.selectedValue[2].attribute}: {eq: "${props.selectedValue[2].vale}"}
-            }) {
-                items {
-                    __typename
-                    id,
-                    sku
-                    name
-                    url_key,
-                    url_path,
-                    price {
-                        regularPrice {
-                            amount {
-                                currency
-                                value
-                            }
-                        }
-                    }
-                    short_description {
-                        html
-                    }
-                    media_gallery {
-                        label
-                        url
-                    }
-                }
-            }
-        }
-    `;
-
-    props.client.query({
-        query: GET_PRODUCTS,
-    }).then((data) => {
-        props.setSummaryResult(data.data.productDetail.items);
-    }).catch((err) => {
-        console.log('catch', err)
-    });
-};
+import {getProductsResult} from '../../../api/api';
+import TopToolbar from "../../toolbar/top-toolbar";
 
 class SummaryContainerWithNamespaces extends React.Component {
     state = {
@@ -63,18 +19,32 @@ class SummaryContainerWithNamespaces extends React.Component {
             seen: !this.state.seen,
             productID: id
         });
+
+        if (!this.state.seen) {
+            window.scrollTo(0, 0);
+        }
     };
 
+    componentDidMount() {
+        getProductsResult(this.props.client, this.props.idLastCategory).then((data) => {
+            this.props.setSummaryResult(data.adviserAssignedProducts);
+        }).catch((err) => {
+            console.log('catch', err)
+        });
+    }
+
+
     render() {
-        setProductsResult(this.props);
         return <>
-            {this.props.summaryResult.length > 0 ? <Step5 {...this.props} togglePop={this.togglePop}/> : null}
+            <TopToolbar onClick={() => this.props.jumpToStep(this.props.indexCompletedQuestion)}>prev</TopToolbar>
+            <Step5 {...this.props} togglePop={this.togglePop}/>
             {this.state.seen ?
                 <PopUp
                     t={this.props.t}
                     togglePop={this.togglePop}>
                     <SummaryPopUpContent
                         products={this.props.summaryResult}
+                        t={this.props.t}
                         productId={this.state.productID}/>
                 </PopUp>
                 : null}
@@ -84,8 +54,9 @@ class SummaryContainerWithNamespaces extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        selectedValue: state.questionsStep.selectedValue,
-        summaryResult: state.summaryStep.summaryResult
+        idLastCategory: state.questionsStep.idLastCategory,
+        summaryResult: state.summaryStep.summaryResult,
+        indexCompletedQuestion: state.questionsStep.indexCompletedQuestion,
     }
 };
 

@@ -5,9 +5,13 @@ import Steps from './components/Steps/index';
 import {setContext} from 'apollo-link-context';
 import Adapter from './drivers/adapter';
 
+import getBaseUrl from './utils/getBaseUrl';
+
 import './App.css';
 
-const apiBase = "https://in-lite.local.dev/graphql";
+const apiBase = getBaseUrl() + '/graphql';
+
+const testApi = 'https://in-lite.local.dev/nl/graphql';
 
 const authLink = setContext((_, {headers}) => {
     const token = localStorage.getItem('token');
@@ -21,13 +25,11 @@ const authLink = setContext((_, {headers}) => {
 
 const App = () => {
     return (
-        <div className="in-lite-advisor">
-            <Adapter
-                apiBase={apiBase}
-                apollo={{link: authLink.concat(Adapter.apolloLink(apiBase))}}>
-                <StepResolver steps={Steps}/>
-            </Adapter>
-        </div>
+        <Adapter
+            apiBase={testApi}
+            apollo={{link: authLink.concat(Adapter.apolloLink(testApi))}}>
+            <StepResolver steps={Steps}/>
+        </Adapter>
     )
 };
 

@@ -1,11 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import QuestionWrapper from '../questionWrapper';
+import {withNamespaces} from 'react-i18next';
 
-import {setValue} from '../../../../reducer/questionReducer';
+import {setValue, setIDLastCategory, setIndexCompletedQuestion} from '../../../../reducer/questionReducer';
 
-const SecondQuestionsContainer = (props) => {
-    let index = 1;
+const SecondQuestionsContainerWithNamespaces = (props) => {
+    let index = 2;
 
     return (
         <QuestionWrapper index={index} {...props}/>
@@ -14,10 +15,12 @@ const SecondQuestionsContainer = (props) => {
 
 let mapStateToProps = (state) => {
     return {
-        questions: state.gardenElementsStep.questions,
         selectedElement: state.gardenElementsStep.selectedGardenElement,
         selectedValue: state.questionsStep.selectedValue,
+        idFirstSelectedCategory: state.questionsStep.idFirstSelectedCategory
     }
 };
 
-export default connect(mapStateToProps, {setValue})(SecondQuestionsContainer);
+const SecondQuestionsContainer = withNamespaces()(SecondQuestionsContainerWithNamespaces);
+
+export default connect(mapStateToProps, {setValue, setIDLastCategory, setIndexCompletedQuestion})(SecondQuestionsContainer);

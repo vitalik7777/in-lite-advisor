@@ -4,11 +4,9 @@ const Button = (props) => {
     const {children, ...restProps} = props;
 
     return (
-        <div className="toolbar">
-            <button {...restProps}>
-                <span>{children}</span>
-            </button>
-        </div>
+        <button {...restProps}>
+            <span>{children}</span>
+        </button>
     );
 };
 

@@ -5,12 +5,17 @@ const PopUp = (props) => {
     const {t, children, togglePop} = props;
 
     return (
-        <div className="modal">
-            <div className="modal_content">
-                <button className="close" onClick={() => {togglePop()}}>{t('close')}</button>
-                {children}
+        <>
+            <div className="overlap-modal"/>
+            <div className="modal">
+                <div className="modal_content">
+                    <button className="close" onClick={() => {
+                        togglePop()
+                    }}>{t('close')}</button>
+                    {children}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

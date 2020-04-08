@@ -6,13 +6,12 @@ let initialState = {
 
 const summaryReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET-PRODUCTS': {
+        case SET_PRODUCTS: {
             return {
                 ...state,
                 summaryResult: action.products
             }
         }
-
         default:
             return state;
 

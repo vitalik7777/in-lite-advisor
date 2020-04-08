@@ -1,0 +1,75 @@
+
+.garden-elements .element {
+    width: 115px;
+    cursor: pointer;
+    margin: 0 35px 38px 0;
+    font-size: 13px;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+    .garden-elements {
+        margin: 50px auto 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 720px;
+        height: auto !important;
+    }
+
+    .garden-elements .element:nth-child(5n) {
+        margin-right: 0;
+    }
+}
+
+@media screen and (max-width: 1025px) {
+
+}
+
+@media screen and (max-width: 1023px) {
+    .garden-elements {
+        max-width: 545px;
+    }
+
+    .garden-elements .element {
+        width: 85px;
+        margin-right: 30px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .garden-elements .element:nth-child(2n) {
+        margin-right: 0;
+    }
+
+    .garden-elements {
+        max-width: 300px;
+        margin: 30px auto 0;
+        overflow-y: scroll;
+        padding: 0 25px;
+        max-height: 440px;
+    }
+
+    .garden-elements .element {
+        width: 44%;
+        margin: 0 30px 25px 0;
+        float: left;
+    }
+
+    .garden-elements .element:last-child,
+    .garden-elements .element:nth-last-child(2) {
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 767px) and (orientation: landscape) {
+    .garden-elements {
+        max-height: 180px;
+        margin-top: 15px;
+    }
+}

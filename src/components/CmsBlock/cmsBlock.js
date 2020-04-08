@@ -42,7 +42,7 @@ const CmsBlockGroup = (props) => {
                 ));
 
                 return (
-                    <div>{blocks}</div>
+                    <>{blocks}</>
                 )
             }}
         </Query>

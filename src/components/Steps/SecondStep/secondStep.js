@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '../../Button/button';
 import CmsBlockContainer from '../../CmsBlock/cmsBlockContainer';
 import LoadingSpinner from "../../LoadingSpinner/loadingSpinner";
+import TopToolbar from "../../toolbar/top-toolbar";
 
 const SecondStep = (props) => {
     let ready = !props.isFetching ? 'ready' : '';
@@ -10,9 +11,7 @@ const SecondStep = (props) => {
         <div className="main-wrapper">
             {props.isFetching ? <LoadingSpinner text={props.t('Loading...')}/> : ''}
 
-            <div className="top-toolbar">
-                <button className="btn-prev" onClick={() => props.previous()}></button>
-            </div>
+            <TopToolbar onClick={() => props.previous()}/>
             <div className={"animation-area " + ready}>
                 <div className="head-title">Hoe in-lite werkt</div>
                 <div className="video-content">

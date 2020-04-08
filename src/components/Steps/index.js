@@ -1,7 +1,7 @@
 import React from 'react';
 import FirstStepContainer from './FirstStep/firstStepContainer';
 import SecondStepContainer from './SecondStep/secondStepContainer';
-import {ThirdStep} from './ThirdStep/thirdStep';
+import GardenElementsContainer from './ThirdStep/gardenElementsContainer';
 import FirstQuestionsContainer from "./FourthStep/FirstQuestion/firstQuestionsContainer";
 import SecondQuestionsContainer from "./FourthStep/SecondQuestion/secondQuestionsContainer";
 import ThirdQuestionsContainer from "./FourthStep/ThirdQuestion/thirdQuestionsContainer";
@@ -11,7 +11,7 @@ const Steps =
     [
         {name: 'FirstStep', component: <FirstStepContainer/>},
         {name: 'SecondStep', component: <SecondStepContainer/>},
-        {name: 'ThirdStep', component: <ThirdStep/>},
+        {name: 'ThirdStep', component: <GardenElementsContainer/>},
         {name: 'FirstQuestion', component: <FirstQuestionsContainer/>},
         {name: 'SecondQuestion', component: <SecondQuestionsContainer/>},
         {name: 'ThirdQuestion', component: <ThirdQuestionsContainer/>},
