@@ -1,14 +1,15 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
+
+import './toolbar.css';
 
 const TopToolbar = (props) => {
-
-    const {children, ...restProps} = props;
+    const {t} = useTranslation();
+    const {...restProps} = props;
 
     return (
         <div className="top-toolbar">
-            <button className="btn-prev" {...restProps}>
-                <span>{children}</span>
-            </button>
+            <button className="btn-prev" {...restProps}>{t('prev')}</button>
         </div>
     );
 };

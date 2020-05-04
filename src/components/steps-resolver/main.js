@@ -7,7 +7,8 @@ export default class StepResolver extends Component {
 
         this.state = {
             compState: this.props.startAtStep,
-            navState: this.getNavStates(this.props.startAtStep, this.props.steps.length)
+            navState: this.getNavStates(this.props.startAtStep, this.props.steps.length),
+            cssClass: ''
         };
 
         // if user did not give a custom nextTextOnFinalActionStep, the nextButtonText becomes the default
@@ -105,6 +106,10 @@ export default class StepResolver extends Component {
         ));
     }
 
+    handlerCssClass(cssClass) {
+        this.setState({cssClass: cssClass});
+    }
+
     // main render of StepResolver container
     render() {
         // clone the step component dynamically and tag it as activeComponent so we can validate it on next. also bind the jumpToStep piping method
@@ -117,6 +122,9 @@ export default class StepResolver extends Component {
             },
             previous: () => {
                 this.previous();
+            },
+            handlerCssClass: (cssClass) => {
+                this.handlerCssClass(cssClass);
             },
             steps: this.props.steps,
             activeStep: this.state.compState
@@ -140,7 +148,7 @@ export default class StepResolver extends Component {
         let activeStep = this.props.steps[this.state.compState].name;
 
         return (
-            <div className={"in-lite-advisor" + lastStep}>
+            <div className={"in-lite-advisor" + lastStep + " " + this.state.cssClass}>
                 <div className={"steps-wrapper" + firstStep + " " + activeStep}>
                     {compToRender}
                     <ul className="progress-bar">

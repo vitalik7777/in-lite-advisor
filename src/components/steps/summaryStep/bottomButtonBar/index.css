@@ -1,0 +1,45 @@
+.bottom-btn-bar .btn {
+    border: none;
+    text-transform: uppercase;
+    border-radius: 3px;
+    background: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 13px;
+    display: block;
+    padding: 13px 0;
+    height: 46px;
+}
+
+.first-row-result .bottom-btn-bar .btn {
+    color: #fff;
+    border: 2px solid #fff;
+    width: 100%;
+    max-width: 208px;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+}
+
+.first-row-result .bottom-btn-bar .btn.get-product {
+    background: #fff;
+    color: #343e48;
+}
+
+.first-row-result .bottom-btn-bar .btn.get-full-detail {
+    margin-right: 17px;
+}
+
+@media screen and (max-width: 767px) {
+    .first-row-result .bottom-btn-bar .btn {
+        display: block;
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .first-row-result .bottom-btn-bar .btn.get-full-detail {
+        margin: 0 0 15px 0;
+    }
+}

@@ -1,0 +1,147 @@
+.in-lite-advisor.last-step {
+   /* height: auto;
+    min-height: 100%;*/
+}
+
+.in-lite-advisor.last-step.open-popup .steps-wrapper {
+    overflow: visible;
+}
+
+.in-lite-advisor.last-step.ready:after {
+    content: '';
+    position: absolute;
+    backdrop-filter: blur(1px);
+    background: rgba(0, 0, 0, 0.8);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0;
+    animation: fadeinBg 0.7s ease-in forwards;
+    animation-delay: 0.3s;
+}
+
+.in-lite-advisor.last-step.ready .steps-wrapper {
+    max-height: 5000px;
+    min-height: 700px;
+    height: auto;
+    transition: all 3s;
+}
+
+.steps-wrapper {
+    max-height: 700px;
+}
+
+.summary-step {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    overflow: hidden;
+}
+
+.open-popup .summary-step {
+    min-height: 1600px;
+}
+
+.summary-step.no-products {
+    height: 100%;
+}
+
+.steps-wrapper.Step5 .progress-bar {
+    display: none;
+}
+
+.product-usp {
+    margin: 0 0 20px 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+}
+
+.product-usp li {
+    position: relative;
+    padding-left: 18px;
+    margin: 0 0 10px 0;
+}
+
+.product-usp li:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 4px;
+    background: url(../../../media/green-checkmark.svg) no-repeat;
+    width: 10px;
+    height: 9px;
+    background-size: 10px 9px;
+}
+
+.slick-slider .slick-dots {
+    position: relative;
+    margin: 25px 0 0 0;
+    bottom: 0;
+    display: flex !important;
+    height: 3px;
+}
+
+.slick-slider .slick-dots > li {
+    margin: 0;
+    flex-grow: 1;
+    width: auto;
+    height: 3px;
+}
+
+.slick-slider .slick-dots > li button {
+    width: 100%;
+    padding: 0;
+    height: 3px;
+    background: rgba(33, 37, 41, .1);
+    vertical-align: top;
+}
+
+.slick-slider .slick-dots > li.slick-active button {
+    background: #212529;
+
+}
+
+.products-result.one-product {
+    padding-bottom: 300px;
+}
+
+.not-found-products {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    padding: 0 20px;
+}
+
+@media screen and (min-width: 1026px) {
+    .in-lite-advisor.last-step {
+        padding: 80px 0;
+    }
+}
+
+@media screen and (max-width: 1025px) {
+
+}
+
+@media screen and (max-width: 767px) {
+    .in-lite-advisor.last-step .steps-wrapper {
+        overflow: auto;
+    }
+
+    .summary-step {
+        min-height: calc(100vh - 30px);
+    }
+}
+
+@keyframes fadeinBg {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

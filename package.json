@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/runtime": "^7.9.6",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
@@ -16,15 +17,16 @@
     "csv": "^0.3.7",
     "graphql": "^14.6.0",
     "graphql.macro": "^1.4.2",
-    "i18next": "^19.1.0",
-    "i18next-browser-languagedetector": "^4.0.1",
-    "i18next-xhr-backend": "^3.2.2",
+    "i18next": "^19.4.4",
+    "i18next-browser-languagedetector": "^4.1.1",
+    "i18next-http-backend": "^1.0.7",
+    "isomorphic-unfetch": "^3.0.0",
     "promise": "^8.0.3",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-apollo": "^3.1.3",
     "react-dom": "^16.12.0",
-    "react-i18next": "^9.0.10",
+    "react-i18next": "^11.4.0",
     "react-redux": "^7.1.3",
     "react-scripts": "3.3.0",
     "react-slick": "^0.25.2",
@@ -40,6 +42,12 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "nohoist": [
+    "**/babel-preset-react-app/@babel/runtime"
+  ],
+  "resolutions": {
+    "react-dev-utils": "10.1.0"
   },
   "browserslist": {
     "production": [

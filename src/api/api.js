@@ -6,7 +6,7 @@ export const getAllTreeAPI = (client) => {
     }).then(data => data.data);
 };
 
-export const getProductsResult = (client, idLastCategory) => {
+export const getProductsAPI = (client, idLastCategory) => {
     return client.query({
         query: gql`{adviserAssignedProducts(id:${idLastCategory}){
             id

@@ -1,21 +1,21 @@
-const SET_VALUE = 'SET-VALUE';
+const SET_NESTED_QUESTION = 'SET-NESTED-QUESTION';
 const SET_LAST_CATEGORY = 'SET-LAST-CATEGORY';
 const SET_INDEX = 'SET-INDEX';
-const SET_ID_FIRST_QUESTION = 'SET-ID-FIRST-QUESTION';
+const SET_ID_FIRST_ANSWER = 'SET-ID-FIRST-ANSWER';
 
 let initialState = {
-    selectedValue: [],
-    idFirstSelectedCategory: null,
+    selectedNestedElement: [],
+    idFirstSelectedAnswer: null,
     idLastCategory: null,
     indexCompletedQuestion: null
 };
 
 const questionsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_VALUE: {
+        case SET_NESTED_QUESTION: {
             return {
                 ...state,
-                selectedValue: action.selectedElement
+                selectedNestedElement: action.selectedElement
             }
         }
         case SET_LAST_CATEGORY: {
@@ -30,10 +30,10 @@ const questionsReducer = (state = initialState, action) => {
                 indexCompletedQuestion: action.id
             }
         }
-        case SET_ID_FIRST_QUESTION: {
+        case SET_ID_FIRST_ANSWER: {
             return {
                 ...state,
-                idFirstSelectedCategory: action.id
+                idFirstSelectedAnswer: action.id
             }
         }
         default:
@@ -42,9 +42,9 @@ const questionsReducer = (state = initialState, action) => {
     }
 };
 
-export const setValue = (selectedElement) => ({type: SET_VALUE, selectedElement});
+export const setNestedQuestion = (selectedElement) => ({type: SET_NESTED_QUESTION, selectedElement});
 export const setIDLastCategory = (id) => ({type: SET_LAST_CATEGORY, id});
 export const setIndexCompletedQuestion = (id) => ({type: SET_INDEX, id});
-export const setIdFirstSelectedQuestion = (id) => ({type: SET_ID_FIRST_QUESTION, id});
+export const setIdFirstSelectedAnswer = (id) => ({type: SET_ID_FIRST_ANSWER, id});
 
 export default questionsReducer;

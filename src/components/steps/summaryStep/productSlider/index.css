@@ -1,0 +1,194 @@
+@import "slick-theme.min.css";
+@import "slick.min.css";
+
+.slider-row-result {
+    padding: 0 35px 25px;
+    margin-top: 300px;
+    opacity: 0;
+    position: relative;
+    animation: slideInUp 0.7s cubic-bezier(.02, .46, .25, .83) forwards;
+    animation-delay: 2.3s;
+    overflow: hidden;
+}
+
+.slider-row-result:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 90px;
+    bottom: 0;
+    background: #FDEFD9;
+}
+
+.slider-row-result .heading {
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.slider-row-result .slick-slider .slick-track {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.slider-row-result .slick-slider .slick-track .slick-slide {
+    height: auto;
+
+}
+
+.slick-initialized .slick-slide > div {
+    height: 100%;
+}
+
+.slick-initialized .slick-slide > div > div {
+    height: 100%;
+}
+
+.slider-row-result .slick-slider .slick-arrow {
+    display: none !important;
+}
+
+.slider-row-result .slick-slider .slick-list {
+    overflow: initial !important;
+    width: calc(100% - 131px);
+    margin: 0 -10px;
+    height: auto !important;
+}
+
+.slider-row-result .slick-slider .slick-slide {
+    padding: 0 10px;
+}
+
+.slider-row-result .slick-slider .product {
+    background: #fff;
+    position: relative;
+    padding-bottom: 125px;
+}
+
+.slider-row-result .slick-slider .product .product-image {
+    display: block;
+    height: 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 90%;
+}
+
+.slider-row-result .slick-slider .product .product-image img {
+    bottom: 0;
+    display: block;
+    height: auto;
+    left: 0;
+    margin: auto;
+    max-width: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.slick-slide img {
+    width: 100%;
+}
+
+.slider-row-result .slider-wrapper {
+    /*position: relative;
+    top: -90px;*/
+}
+
+.slider-row-result .slick-slider .product .bottom-detail {
+    padding: 20px 25px;
+}
+
+.slider-row-result .slick-slider .product .product-name {
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 24px;
+}
+
+.slider-row-result .slick-slider .product .product-description {
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 7px 0 20px;
+}
+
+.slider-row-result .slick-slider .product .bottom-btn-bar {
+    position: absolute;
+    left: 25px;
+    right: 25px;
+    bottom: 30px;
+}
+
+.slider-row-result .slick-slider .product .bottom-btn-bar .btn {
+    width: 100%;
+    text-align: center;
+}
+
+.slider-row-result .slick-slider .product .bottom-btn-bar .btn.get-full-detail {
+    border: 2px solid #212529;
+    background: none;
+    color: #212529;
+    margin-bottom: 10px;
+}
+
+.slider-row-result .slick-slider .product .bottom-btn-bar .btn.get-product {
+    background: #212529;
+    color: #fff;
+}
+
+@media screen and (max-width: 1023px) {
+    .slider-row-result {
+        padding: 0 20px 20px;
+    }
+
+    .slider-row-result .slick-slider .slick-list {
+        width: calc(100% - 80px);
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .slider-row-result {
+        margin-top: 40px;
+    }
+
+    .slider-row-result .heading {
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
+
+    .slider-row-result .slick-slider .slick-list {
+        width: calc(100% - 100px);
+    }
+
+    .slider-row-result .slick-slider .product .product-name {
+        font-size: 20px;
+    }
+
+    .slider-row-result .slick-slider .product .bottom-detail {
+        padding: 15px;
+    }
+
+    .slider-row-result .slick-slider .product .bottom-btn-bar {
+        left: 15px;
+        right: 15px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .slider-row-result .slick-slider .slick-list {
+        width: 100%;
+        margin: 0;
+    }
+
+    .slider-row-result .slick-slider .slick-slide {
+        padding: 0;
+    }
+
+    .slider-row-result .slick-slider .slick-list {
+        overflow: hidden !important;
+    }
+}
