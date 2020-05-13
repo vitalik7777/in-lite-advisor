@@ -1,5 +1,6 @@
-import getBaseUrl from "../utils/getBaseUrl";
-import setStorageTimeStamp from "../utils/setStorage";
+import getBaseUrl from '../utils/getBaseUrl';
+import getUrlLocale from '../utils/getUrlLocale';
+import setStorageTimeStamp from '../utils/setStorage';
 
 const SET_INITIALIZE = 'SET_INITIALIZE';
 const SET_BASE_API = 'SET-BASE-API';
@@ -32,8 +33,8 @@ const setBaseAPI = (api) => ({type: SET_BASE_API, api});
 
 export const initializeApp = () => (dispatch) => {
     const API = process.env.NODE_ENV === 'production' ?
-            (getBaseUrl() + '/graphql') :
-            process.env.NODE_ENV === 'development' ?
+        (getBaseUrl() + '/graphql') :
+        process.env.NODE_ENV === 'development' ?
             (process.env.REACT_APP_IN_LITE_DEVELOPMENT_API) :
             null;
 
@@ -42,6 +43,11 @@ export const initializeApp = () => (dispatch) => {
     if (API) {
         dispatch(setBaseAPI(API));
         setStorageTimeStamp(timeStamp);
+
+        if (getUrlLocale() !== localStorage.getItem('i18nextLng')) {
+            localStorage.removeItem('apollo-cache-persist');
+        }
+
         dispatch(initializedSuccsess());
     }
 };

@@ -1,5 +1,4 @@
 import React from 'react';
-import './thirdStep.css';
 import ErrorView from '../../errorView';
 import Img from "../../imgComponent";
 
@@ -12,18 +11,18 @@ let setImg = (item) => {
     }
 };
 
-const GardenElements = (props) => {
-    let selectGardenElement = (id) => {
-        props.selectGardenElement(id);
-        props.next();
+const GardenElements = ({gardenElements, selectGardenElement, next}) => {
+    let selectGardenElements = (id) => {
+        selectGardenElement(id);
+        next();
     };
     return (
         <div className="garden-elements">
-            {props.gardenElements.length === 0 ?
+            {gardenElements.length === 0 ?
                 <ErrorView notFoundGardenElement={true} /> :
-                props.gardenElements.map(item =>
+                gardenElements.map(item =>
                     <div onClick={() => {
-                        selectGardenElement(item.id)
+                        selectGardenElements(item.id)
                     }}
                          key={item.id}
                          className="element">

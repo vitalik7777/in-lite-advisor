@@ -1,7 +1,8 @@
 import React from 'react';
 import Question from './question';
-import './question.css';
-import TopToolbar from "../../toolbar/top-toolbar";
+import TopToolbar from "../../toolbar";
+
+import './index.css';
 
 let getQuestionSelectedGardenElement = (props) => {
     return props.gardenElements.find(item => item.id === props.selectedGardenElement);

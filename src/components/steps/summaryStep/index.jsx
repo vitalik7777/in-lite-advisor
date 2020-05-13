@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {withApollo} from "react-apollo";
+import {useApolloClient} from '@apollo/react-hooks'
 import SummaryStepWrapper from './summaryStepWrapper';
 import SummaryPopUpContent from './summaryPopUp';
 import PopUp from '../../popUp';
@@ -8,12 +8,16 @@ import PopUp from '../../popUp';
 import {getProducts, clearProducts} from '../../../reducer/summaryReducer';
 import LoadingSpinner from "../../loadingSpinner";
 
-const SummaryContainerWithNamespaces = (props) => {
+const SummaryStepContainer = (props) => {
     const [seen, setSeen] = useState(false);
-
-    const {summaryResult} = props;
-
+    const {
+        summaryResult,
+        getProducts,
+        idLastCategory,
+        handlerCssClass
+    } = props;
     const [productID, setProductID] = useState(null);
+    const client = useApolloClient();
 
     const togglePop = (id, flag) => {
         setSeen(flag);
@@ -34,14 +38,14 @@ const SummaryContainerWithNamespaces = (props) => {
     };
 
     useEffect(() => {
-        props.getProducts(props.client, props.idLastCategory);
-    }, [props]);
+        getProducts(client, idLastCategory);
+    }, [getProducts, client, idLastCategory]);
 
 
     useEffect(() => {
         if (summaryResult) {
             if (summaryResult.length !== 0) {
-                props.handlerCssClass('ready')
+                handlerCssClass('ready')
             }
         }
     }, [summaryResult]);
@@ -72,7 +76,5 @@ let mapStateToProps = (state) => {
         indexCompletedQuestion: state.questionsStep.indexCompletedQuestion,
     }
 };
-
-const SummaryStepContainer = withApollo(SummaryContainerWithNamespaces);
 
 export default connect(mapStateToProps, {getProducts, clearProducts})(SummaryStepContainer);

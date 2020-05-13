@@ -1,11 +1,12 @@
 import React from 'react';
 import FirstRowProduct from './firstRowProduct';
-import TopToolbar from "../../toolbar/top-toolbar";
+import TopToolbar from "../../toolbar";
 import ProductSlider from './productSlider';
 import mapProduct from './productDescriptionResolver';
 import ErrorView from "../../errorView";
 
 import './index.css';
+import ButtonGoToStep from "./goToStep";
 
 const SummaryStepWrapper = (props) => {
     const {summaryResult} = props;
@@ -19,11 +20,14 @@ const SummaryStepWrapper = (props) => {
     return (
         <div className={'summary-step' + noAvailableProductsClass}>
             <TopToolbar onClick={() => props.goTostep(props.indexCompletedQuestion)}/>
+            <ButtonGoToStep className='btn-prev' onClick={() => props.goTostep(2)}/>
             {productsLength !== 0 ?
                 <div className={'products-result' + oneProductClass}>
                     <FirstRowProduct
                         product={mapProduct(summaryResult[0])}
                         togglePop={props.togglePop}
+                        handleStep={props.goTostep}
+
                     />
                     {productsLength > 1
                         ? <ProductSlider

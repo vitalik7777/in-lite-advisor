@@ -1,21 +1,20 @@
 import React from 'react';
-import './thirdStep.css';
 import LoadingSpinner from "../../loadingSpinner";
-import TopToolbar from "../../toolbar/top-toolbar";
+import TopToolbar from "../../toolbar";
 import CmsBlockContainer from "../../cmsBlock";
 import GardenElements from "./gardenElements";
 
-const GardenElementsWrapper = (props) => {
-    let ready = !props.isFetching ? 'ready' : '';
+import './index.css';
+
+const GardenElementsWrapper = ({block, previous, next, gardenElements, selectGardenElement}) => {
+    if (!block) return <LoadingSpinner/>;
 
     return (
         <div className="main-wrapper">
-            {props.isFetching ? <LoadingSpinner/> : ''}
-
-            <TopToolbar onClick={() => props.previous()}/>
-            <div className={"animation-area " + ready}>
-                <CmsBlockContainer identifiers="advisor_third_step_content"/>
-                <GardenElements {...props}/>
+            <TopToolbar onClick={() => previous()}/>
+            <div className="animation-area ready">
+                <CmsBlockContainer cmsBlock={block}/>
+                <GardenElements next={next} gardenElements={gardenElements} selectGardenElement={selectGardenElement}/>
             </div>
         </div>
     );

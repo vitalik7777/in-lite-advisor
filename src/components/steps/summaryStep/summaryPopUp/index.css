@@ -66,6 +66,7 @@
 
 .product-popup .bottom-detail {
     padding: 40px 50px;
+    word-break: break-word;
 }
 
 .product-popup .slick-slider:before {
@@ -84,6 +85,10 @@
     top: 90px;
     bottom: -40px;
     background: #E9F5DA;
+}
+
+.product-popup .slick-slider {
+    padding: 0;
 }
 
 .product-popup .slick-slider .slick-slide {
@@ -115,6 +120,7 @@
     border-radius: 2px;
     font-size: 14px;
     padding: 17px 0;
+    height: 50px;
     cursor: pointer;
     text-align: center;
     text-decoration: none;

@@ -7,9 +7,14 @@
     font-weight: bold;
     text-decoration: none;
     font-size: 13px;
+    letter-spacing: 1px;
     display: block;
     padding: 13px 0;
     height: 46px;
+}
+
+.bottom-btn-bar .btn:after {
+    display: none !important;
 }
 
 .first-row-result .bottom-btn-bar .btn {

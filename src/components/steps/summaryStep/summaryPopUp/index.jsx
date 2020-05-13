@@ -36,14 +36,17 @@ const SummaryPopUpContent = (props) => {
 
     let product = mapProduct(products.find(item => item.id === productId));
 
-    const {amount: productPrice} = product.price.regularPrice;
+    const {amount} = product.price.regularPrice;
+
+    const productPrice = amount.value.toFixed(2);
+
 
     return (
         <div className="product-popup">
             <ProductImage product={product} width={325}/>
             <div className="bottom-detail">
                 <div className="product-name">{product.name}</div>
-                <div className="price">{productPrice.value}</div>
+                <div className="price">{productPrice}</div>
                 <RichText classes="product-description" content={product.description}/>
                 <ProductUsp product={product}/>
                 <div className="bottom-wrap">
@@ -54,7 +57,7 @@ const SummaryPopUpContent = (props) => {
                             </div>
                         ))}
                     </Slider>
-                    <BottomButtonBar product={product}/>
+                    <BottomButtonBar urlKey={product.url_key} product={product}/>
                 </div>
             </div>
         </div>

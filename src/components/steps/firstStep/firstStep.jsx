@@ -2,21 +2,33 @@ import React from 'react';
 import CmsBlockContainer from '../../cmsBlock';
 import Button from '../../button';
 import LoadingSpinner from '../../loadingSpinner';
-import {useTranslation} from "react-i18next";
 
-const FirstStep = (props) => {
-    const {t} = useTranslation();
+import './index.css';
 
-    const ready = !props.isFetching ? 'ready' : '';
+const FirstStep = ({onNext, videoStep, block}) => {
+    if (!block) return <LoadingSpinner/>;
 
     return (
         <div className="main-wrapper">
-            {props.isFetching ? <LoadingSpinner /> : ''}
-
-            <div className={"animation-area " + ready}>
-                <CmsBlockContainer identifiers="advisor_first_step_content"/>
-                <Button className="btn btn-next" type="button"
-                        onClick={() => props.next()}>{t('get started')}</Button>
+            <div className={"animation-area ready"}>
+                <CmsBlockContainer cmsBlock={block}/>
+                <Button
+                    className="btn btn-next"
+                    type="button"
+                    onClick={() => onNext()}
+                    text="get started">
+                </Button>
+                {
+                    videoStep &&
+                    <div className="skip-video-block">
+                        <Button
+                            className="btn skip-video"
+                            type="button"
+                            onClick={() => onNext(2)}
+                            text="skip step with video">
+                        </Button>
+                    </div>
+                }
             </div>
         </div>
     );

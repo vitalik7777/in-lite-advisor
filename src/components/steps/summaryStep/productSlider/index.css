@@ -33,11 +33,12 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
+    margin: 0;
 }
 
 .slider-row-result .slick-slider .slick-track .slick-slide {
     height: auto;
-
+    margin: 0;
 }
 
 .slick-initialized .slick-slide > div {
@@ -48,8 +49,9 @@
     height: 100%;
 }
 
-.slider-row-result .slick-slider .slick-arrow {
-    display: none !important;
+.slider-row-result .slick-slider .slick-arrow,
+.product-popup .slick-slider .slick-arrow {
+    display: none !important
 }
 
 .slider-row-result .slick-slider .slick-list {
@@ -67,6 +69,7 @@
     background: #fff;
     position: relative;
     padding-bottom: 125px;
+    word-break: break-word;
 }
 
 .slider-row-result .slick-slider .product .product-image {

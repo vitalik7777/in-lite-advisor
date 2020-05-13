@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {ApolloClient} from 'apollo-client';
 import {persistCache} from 'apollo-cache-persist';
 import 'isomorphic-unfetch'
-import {ApolloProvider} from 'react-apollo';
 import {createHttpLink} from 'apollo-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
+
+import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks'
 
 export default class Adapter extends Component {
     static apolloLink(apiBase) {
@@ -42,9 +43,9 @@ export default class Adapter extends Component {
     render() {
         const {children} = this.props;
         return (
-            <ApolloProvider client={this.apolloClient}>
+            <ApolloHooksProvider client={this.apolloClient}>
                 {children}
-            </ApolloProvider>
+            </ApolloHooksProvider>
 
         );
     }

@@ -1,0 +1,62 @@
+.steps-wrapper.second-step {
+    transition: all .7s;
+}
+
+.steps-wrapper.second-step .animation-area.ready {
+    animation: fadein .7s ease-in forwards;
+    animation-delay: .7s;
+}
+
+.steps-wrapper.second-step .head-title {
+    margin-bottom: 40px;
+}
+
+.steps-wrapper.second-step .btn-next {
+    margin-top: 30px;
+}
+
+.second-step .video-content {
+    position: relative;
+    padding-bottom: 52.5%; /* 16:9 */
+    height: 0;
+}
+
+.second-step .video-content .embed-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width: 767px) {
+    .steps-wrapper.second-step .progress-bar,
+    .steps-wrapper.second-step .top-toolbar {
+        animation: showStaff .7s ease-in forwards;
+        animation-delay: .7s;
+        opacity: 0;
+    }
+}
+
+@media screen and (max-width: 767px) and (orientation: landscape) {
+    .steps-wrapper.second-step {
+        min-height: auto;
+        height: 620px;
+        max-height: initial;
+    }
+
+    .steps-wrapper.second-step .main-wrapper {
+        padding-top: 50px;
+        padding-bottom: 30px;
+    }
+}
+
+@keyframes showStaff {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

@@ -22,6 +22,7 @@
     box-sizing: border-box;
     padding: 60px 147px 60px 60px;
     opacity: 0;
+    word-break: break-word;
 }
 
 .ready .first-row-result .preview-row {
