@@ -1,36 +1,39 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import isObject from '../../../utils/isObject';
 import RichText from "../../richText";
 import ErrorView from "../../errorView";
 import Img from '../../imgComponent'
+import StepContext from "../../../context/stepsContext";
 
 const MAX_ANSWERS = process.env.REACT_APP_IN_LITE_MAX_ANSWERS;
 
-const getQuestion = (props, id) => {
-    return props.question.children_data.find(item => item.id === id);
-};
-
-const goToNextQuestion = (props, nextQuestion) => {
-    props.setNestedQuestion(nextQuestion);
-    props.next();
-};
-
-const jumpToResultPage = (props, nextQuestion) => {
-    props.setIDLastCategory(nextQuestion.id);
-    props.setIndexCompletedQuestion(props.activeStep);
-    props.jumpToStep(6);
-};
-
-const setImg = (item) => {
-    return {
-        alt: item.name,
-        src: item.image,
-        width: '214px',
-        height: '214px'
-    }
-};
-
 const Question = (props) => {
+    const {next, jumpToStep, activeStep} = useContext(StepContext);
+
+    const getQuestion = (props, id) => {
+        return props.question.children_data.find(item => item.id === id);
+    };
+
+    const goToNextQuestion = (props, nextQuestion) => {
+        props.setNestedQuestion(nextQuestion);
+        next();
+    };
+
+    const jumpToResultPage = (props, nextQuestion) => {
+        props.setIDLastCategory(nextQuestion.id);
+        props.setIndexCompletedQuestion(activeStep);
+        jumpToStep(6);
+    };
+
+    const setImg = (item) => {
+        return {
+            alt: item.name,
+            src: item.image,
+            width: '214px',
+            height: '214px'
+        }
+    };
+
     let setNestedQuestion = (id) => {
         const nextQuestion = getQuestion(props, id);
 

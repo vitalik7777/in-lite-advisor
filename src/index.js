@@ -10,4 +10,3 @@ ReactDOM.render(
         <AppContainer/>
     </Provider>, document.getElementById('root')
 );
-

@@ -77,7 +77,6 @@ img {
     padding: 0 17%;
 }
 
-
 .main-wrapper .btn-next {
     background: #000;
     color: #fff;
@@ -112,7 +111,6 @@ img {
     margin: 0;
 }
 
-
 .steps-wrapper .progress-bar li {
     height: 15px;
     width: 0;
@@ -129,7 +127,6 @@ img {
     transition: 0.5s;
     width: 20%;
 }
-
 
 .steps-wrapper .animation-area {
     opacity: 0;
@@ -165,6 +162,13 @@ img {
 @media screen and (max-width: 1023px) {
     .main-wrapper .head-title {
         padding: 0 5%;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .steps-wrapper {
+        height: 680px;
+        min-height: 680px;
     }
 }
 

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {useApolloClient} from '@apollo/react-hooks'
 import GardenElementsWrapper from './gardenElementWrapper';
@@ -8,10 +8,12 @@ import {
     getAllTree
 } from '../../../reducer/gardenElementsReducer';
 import useCmsBlock from "../../../hooks/useCmsBlocks";
+import StepContext from "../../../context/stepsContext";
 
-const GardenElementsContainer = ({getAllTree, previous, next, gardenElements, selectGardenElement}) => {
+const GardenElementsContainer = ({getAllTree, gardenElements, selectGardenElement}) => {
     const {data, actions} = useCmsBlock();
     const client = useApolloClient();
+    const {next, previous} = useContext(StepContext);
 
     useEffect(() => {
         getAllTree(client);

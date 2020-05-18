@@ -1,9 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import SecondStep from './secondStep';
 import useCmsBlock from "../../../hooks/useCmsBlocks";
+import StepContext from "../../../context/stepsContext";
 
-const SecondStepContainer = ({previous, next}) => {
+const SecondStepContainer = () => {
     const {data, actions} = useCmsBlock();
+    const {next, previous} = useContext(StepContext);
 
     useEffect(() => {
         actions.getBlock('product_advisor_video');

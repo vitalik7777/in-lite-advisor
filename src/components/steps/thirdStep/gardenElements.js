@@ -5,7 +5,7 @@ import Img from "../../imgComponent";
 let setImg = (item) => {
     return {
         alt: item.name,
-        src: item.image,
+        src: item.thumbnail,
         width: '192',
         height: '192'
     }

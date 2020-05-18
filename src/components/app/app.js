@@ -1,5 +1,5 @@
-import React from 'react';
-import StepResolver from '../../steps-resolver';
+import React, {useMemo} from 'react';
+import StepResolver from '../../steps-resolver/stepResolver';
 import Steps from '../../steps/index';
 import {setContext} from 'apollo-link-context';
 import Adapter from '../../drivers/adapter';
@@ -23,11 +23,15 @@ const authLink = setContext((_, {headers}) => {
 const App = (props) => {
     const {t} = useTranslation();
 
+    let mt = useMemo(() => {
+        return {t};
+    }, [t]);
+
     return (
         <Adapter
             apiBase={props.API}
             apollo={{link: authLink.concat(Adapter.apolloLink(props.API))}}>
-            <TranslationContext.Provider value={{t}}>
+            <TranslationContext.Provider value={mt}>
                 <StepResolver initialised={props.initialised} steps={Steps}/>
             </TranslationContext.Provider>
         </Adapter>

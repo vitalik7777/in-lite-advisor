@@ -14,7 +14,6 @@ const SecondQuestionsContainer = (props) => {
 
 let mapStateToProps = (state) => {
     return {
-        selectedGardenElement: state.gardenElementsStep.selectedGardenElement,
         selectedNestedElement: state.questionsStep.selectedNestedElement
     }
 };

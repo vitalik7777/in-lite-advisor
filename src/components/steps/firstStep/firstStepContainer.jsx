@@ -1,11 +1,12 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import FirstStep from './firstStep';
 import useCmsBlock from "../../../hooks/useCmsBlocks";
+import StepContext from "../../../context/stepsContext";
 
-const FirstStepContainer = ({next, jumpToStep}) => {
+const FirstStepContainer = () => {
     const videoStep = localStorage.getItem('setupVideoStep');
     const {data, actions} = useCmsBlock();
-
+    const {next, jumpToStep} = useContext(StepContext);
 
     useEffect(() => {
         actions.getBlock('advisor_first_step_content');

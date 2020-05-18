@@ -10,12 +10,10 @@ import ButtonGoToStep from "./goToStep";
 
 const SummaryStepWrapper = (props) => {
     const {summaryResult} = props;
-
     const productsLength = summaryResult.length;
-
     const oneProductClass = productsLength === 1 ? ' one-product' : '';
-
     const noAvailableProductsClass = productsLength === 0 ? ' no-products' : '';
+    const selectedElement = props.gardenElements.find(item => item.id === props.selectedGardenElement);
 
     return (
         <div className={'summary-step' + noAvailableProductsClass}>
@@ -26,7 +24,7 @@ const SummaryStepWrapper = (props) => {
                     <FirstRowProduct
                         product={mapProduct(summaryResult[0])}
                         togglePop={props.togglePop}
-                        handleStep={props.goTostep}
+                        selectedElement={selectedElement}
 
                     />
                     {productsLength > 1

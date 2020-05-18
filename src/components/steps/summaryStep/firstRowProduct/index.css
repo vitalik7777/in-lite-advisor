@@ -1,6 +1,4 @@
 .first-row-result {
-    background: url('../../../../media/summary-bg.jpg') no-repeat;
-    background-size: cover;
     position: relative;
     z-index: 1;
     padding-top: 24%;
