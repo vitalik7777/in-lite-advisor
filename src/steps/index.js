@@ -2,9 +2,11 @@ import React from 'react';
 import FirstStepContainer from '../components/steps/firstStep';
 import SecondStepContainer from '../components/steps/secondStep';
 import GardenElementsContainer from '../components/steps/thirdStep';
-import FirstQuestionsContainer from "../components/steps/fourthStep/firstQuestion";
-import SecondQuestionsContainer from "../components/steps/fourthStep/secondQuestion";
-import ThirdQuestionsContainer from "../components/steps/fourthStep/thirdQuestion";
+import {
+    FirstQuestionsContainer,
+    SecondQuestionsContainer,
+    ThirdQuestionsContainer
+} from "../components/steps/fourthStep/index";
 import SummaryStepContainer from "../components/steps/summaryStep";
 
 const Steps =
