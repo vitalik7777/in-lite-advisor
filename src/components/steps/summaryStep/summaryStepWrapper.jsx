@@ -8,29 +8,23 @@ import ErrorView from "../../errorView";
 import './index.css';
 import ButtonGoToStep from "./goToStep";
 
-const SummaryStepWrapper = (props) => {
-    const {summaryResult} = props;
+const SummaryStepWrapper = ({summaryResult, goToStep}) => {
     const productsLength = summaryResult.length;
     const oneProductClass = productsLength === 1 ? ' one-product' : '';
     const noAvailableProductsClass = productsLength === 0 ? ' no-products' : '';
-    const selectedElement = props.gardenElements.find(item => item.id === props.selectedGardenElement);
 
     return (
         <div className={'summary-step' + noAvailableProductsClass}>
-            <TopToolbar onClick={() => props.goTostep(props.indexCompletedQuestion)}/>
-            <ButtonGoToStep className='btn-prev' onClick={() => props.goTostep(2)}/>
+            <TopToolbar onClick={() => goToStep()}/>
+            <ButtonGoToStep className='btn-prev' onClick={() => goToStep(2)}/>
             {productsLength !== 0 ?
                 <div className={'products-result' + oneProductClass}>
                     <FirstRowProduct
                         product={mapProduct(summaryResult[0])}
-                        togglePop={props.togglePop}
-                        selectedElement={selectedElement}
-
                     />
                     {productsLength > 1
                         ? <ProductSlider
                             products={summaryResult}
-                            togglePop={props.togglePop}
                         />
                         : null}
                 </div>

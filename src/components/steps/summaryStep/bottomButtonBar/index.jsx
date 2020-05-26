@@ -6,21 +6,38 @@ import Button from "../../../button";
 
 import './index.css';
 import TranslationContext from "../../../../context/translateContext";
+import SummaryStepContext from "../../../../context/summaryStepContext";
 
-export const BottomButtonBar = props => {
+export const BottomButtonBar = ({id = null, urlKey, name}) => {
     const {t} = useContext(TranslationContext);
-    const {id, urlKey, togglePop} = props;
+    const {handleTogglePop, handleOpenProduct} = useContext(SummaryStepContext);
+
+    const ButtonPopUp = () => {
+        if (id) {
+            return <Button className="btn get-full-detail"
+                           onClick={() => {
+                               handleTogglePop(id)
+                           }}
+                           type="button"
+                           text="More information"
+            />
+        } else {
+            return null;
+        }
+    };
 
     return (
         <div className="bottom-btn-bar">
-            {typeof togglePop === 'function' ?
-                <Button className="btn get-full-detail" onClick={() => {
-                    togglePop(id, true)
-                }} type="button" text="More information"/> : null}
-
-
-            <a target="_blank" rel="noopener noreferrer" href={getBaseUrl() + '/' + urlKey}
-               className="btn get-product">{t('Choose this lamp')}</a>
+            <ButtonPopUp/>
+            <a target="_blank"
+               href={getBaseUrl() + '/' + urlKey}
+               className="btn get-product"
+               onClick={() => {
+                   handleOpenProduct(name)
+               }}
+            >
+                {t('Choose this lamp')}
+            </a>
         </div>
     )
 };

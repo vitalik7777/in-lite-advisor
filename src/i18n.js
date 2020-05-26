@@ -4,9 +4,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-xhr-backend';
 
 const detectionOptions = {
-    order: ['path', 'cookie', 'navigator', 'localStorage', 'subdomain', 'htmlTag'],
-    lookupFromPathIndex: 0
-
+    order: ['htmlTag']
 };
 
 i18n.use(Backend)
@@ -15,7 +13,7 @@ i18n.use(Backend)
     .init({
         detection: detectionOptions,
         fallbackLng: 'uk',
-        whitelist: ['uk', 'nl', 'se', 'no', 'de', 'us', 'ca'],
+        whitelist: ['uk', 'nl', 'se', 'no', 'de', 'us', 'ca', 'fr', 'be'],
         ns: 'translation',
         defaultNS: 'translation',
         debug: false,

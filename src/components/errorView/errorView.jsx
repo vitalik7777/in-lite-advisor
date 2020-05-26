@@ -2,9 +2,9 @@ import React, {useContext} from 'react';
 import TranslationContext from "../../context/translateContext";
 
 const messages = new Map()
-    .set('notFoundGardenElement', 'There are no any garden elements.')
-    .set('notFoundAnswers', 'There are no any answers. Please try to choose another category.')
-    .set('notFoundProducts', 'There are no any available products.');
+    .set('notFoundGardenElement', 'There are no any garden elements')
+    .set('notFoundAnswers', 'There are no any answers. Please try to choose another category')
+    .set('notFoundProducts', "There are no any available products");
 
 
 export default function ErrorView(props) {

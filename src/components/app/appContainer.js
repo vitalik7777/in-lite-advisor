@@ -3,18 +3,19 @@ import {connect} from 'react-redux';
 import App from './app';
 import {initializeApp} from '../../reducer/appReducer';
 
-const AppContainer = (props) => {
+const AppContainer = ({initializeApp, initialised, ...props}) => {
     useEffect(() => {
-        props.initializeApp();
-    });
+        initializeApp();
+    }, [initializeApp]);
 
-    return props.initialised ? <App {...props}/> : ''
+    return initialised ? <App {...props}/> : ''
 };
 
 let mapStateToProps = (state) => {
     return {
         initialised: state.app.initialised,
         API: state.app.API,
+        tagManagerId: state.app.tagManagerId
     }
 };
 

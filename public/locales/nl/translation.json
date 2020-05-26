@@ -1,3 +1,14 @@
 {
-  "get started": "aan de slag"
+  "prev": "terug",
+  "get started": "aan de slag",
+  "skip step with video": "stap overslaan met video",
+  "go to the questions": "ga naar de vragen",
+  "Loading": "Bezig met laden...",
+  "There are no any garden elements": "Er zijn geen tuinelementen",
+  "There are no any answers. Please try to choose another category": "Er zijn geen antwoorden. Probeer een andere categorie te kiezen",
+  "There are no any available products": "Er zijn geen beschikbare producten",
+  "go to step with garden elements": "ga naar stap met tuinelementen",
+  "More information": "Meer informatie",
+  "Choose this lamp": "Kies deze lamp",
+  "prefer something else?": "liever iets anders?"
 }

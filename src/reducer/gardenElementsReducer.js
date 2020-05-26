@@ -7,7 +7,7 @@ let initialState = {
 
     gardenElements: [],
 
-    selectedGardenElement: null
+    selectedGardenElementId: null
 };
 
 const GardenElementsReducer = (state = initialState, action) => {
@@ -15,7 +15,7 @@ const GardenElementsReducer = (state = initialState, action) => {
         case SELECT_GARDEN_ELEMENT: {
             return {
                 ...state,
-                selectedGardenElement: action.id
+                selectedGardenElementId: action.id
             }
         }
         case SET_GARDEN_ELEMENT: {

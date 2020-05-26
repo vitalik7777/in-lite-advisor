@@ -14,7 +14,7 @@ const GardenElementsWrapper = ({block, previous, next, gardenElements, selectGar
             <TopToolbar onClick={() => previous()}/>
             <div className="animation-area ready">
                 <CmsBlockContainer cmsBlock={block}/>
-                <GardenElements next={next} gardenElements={gardenElements} selectGardenElement={selectGardenElement}/>
+                <GardenElements gardenElements={gardenElements} selectGardenElement={selectGardenElement}/>
             </div>
         </div>
     );

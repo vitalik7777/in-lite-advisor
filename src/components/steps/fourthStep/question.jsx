@@ -1,29 +1,14 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import isObject from '../../../utils/isObject';
 import RichText from "../../richText";
 import ErrorView from "../../errorView";
 import Img from '../../imgComponent'
-import StepContext from "../../../context/stepsContext";
 
 const MAX_ANSWERS = process.env.REACT_APP_IN_LITE_MAX_ANSWERS;
 
-const Question = (props) => {
-    const {next, jumpToStep, activeStep} = useContext(StepContext);
-
-    const getQuestion = (props, id) => {
-        return props.question.children_data.find(item => item.id === id);
-    };
-
-    const goToNextQuestion = (props, nextQuestion) => {
-        props.setNestedQuestion(nextQuestion);
-        next();
-    };
-
-    const jumpToResultPage = (props, nextQuestion) => {
-        props.setIDLastCategory(nextQuestion.id);
-        props.setIndexCompletedQuestion(activeStep);
-        jumpToStep(6);
-    };
+const Question = ({selectAnswer, question}) => {
+    const answers = question.children_data.filter(item => isObject(item));
+    const slicedAnswers = answers.slice(0, MAX_ANSWERS);
 
     const setImg = (item) => {
         return {
@@ -34,36 +19,15 @@ const Question = (props) => {
         }
     };
 
-    let setNestedQuestion = (id) => {
-        const nextQuestion = getQuestion(props, id);
-
-        // set id of First Selected answer
-        if (props.index === 1) {
-            props.setIdFirstSelectedAnswer(id);
-        }
-
-        if (nextQuestion.children_data.length > 0) {
-            goToNextQuestion(props, nextQuestion);
-        } else {
-            jumpToResultPage(props, nextQuestion);
-        }
-    };
-
-
-    const answers = props.question.children_data.filter(item => isObject(item));
-
-    // get only 3 answers
-    const slicedAnswers = answers.slice(0, MAX_ANSWERS);
-
     return (
         <div className="question-block">
-            <div className="head-title">{props.question.name}</div>
+            <div className="head-title">{question.name}</div>
             <div className="answers-wrapper">
-                {props.question.children_data.length === 0 ?
+                {question.children_data.length === 0 ?
                     <ErrorView notFoundAnswers={true} cssClass='not-found-answers'/> :
                     slicedAnswers.map((item, id) => (
                         <div className="answer" onClick={() => {
-                            setNestedQuestion(item.id)
+                            selectAnswer(item)
                         }} key={id}>
                             <div className="answer-icon">
                                 <Img {...setImg(item)}/>

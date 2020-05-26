@@ -2,28 +2,22 @@ import React from 'react';
 import ErrorView from '../../errorView';
 import Img from "../../imgComponent";
 
-let setImg = (item) => {
-    return {
-        alt: item.name,
-        src: item.thumbnail,
-        width: '192',
-        height: '192'
-    }
-};
-
-const GardenElements = ({gardenElements, selectGardenElement, next}) => {
-    let selectGardenElements = (id) => {
-        selectGardenElement(id);
-        next();
+const GardenElements = ({gardenElements, selectGardenElement}) => {
+    const setImg = (item) => {
+        return {
+            alt: item.name,
+            src: item.thumbnail,
+            width: '192',
+            height: '192'
+        }
     };
+
     return (
         <div className="garden-elements">
             {gardenElements.length === 0 ?
                 <ErrorView notFoundGardenElement={true} /> :
                 gardenElements.map(item =>
-                    <div onClick={() => {
-                        selectGardenElements(item.id)
-                    }}
+                    <div onClick={() => {selectGardenElement(item)}}
                          key={item.id}
                          className="element">
 

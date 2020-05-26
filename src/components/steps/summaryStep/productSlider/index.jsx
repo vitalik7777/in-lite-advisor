@@ -21,7 +21,7 @@ const settings = {
     ]
 };
 
-export default function ProductSlider({products, togglePop}) {
+export default function ProductSlider({products}) {
     const {t} = useTranslation();
 
     return (
@@ -31,7 +31,7 @@ export default function ProductSlider({products, togglePop}) {
                 <Slider {...settings}>
                     {products.map((item, id) => {
                         return id !== 0 ?
-                            <ItemSlide key={id} product={mapProduct(item)} togglePop={togglePop}/> : ''
+                            <ItemSlide key={id} product={mapProduct(item)}/> : ''
                     })}
                 </Slider>
             </div>

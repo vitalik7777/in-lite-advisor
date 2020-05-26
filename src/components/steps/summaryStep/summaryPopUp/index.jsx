@@ -18,9 +18,7 @@ const mapProduct = product => {
     };
 };
 
-const SummaryPopUpContent = (props) => {
-    const {products, productId} = props;
-
+const SummaryPopUpContent = ({productPopUp}) => {
     const settings = {
         dots: true,
         infinite: false,
@@ -34,7 +32,7 @@ const SummaryPopUpContent = (props) => {
         ]
     };
 
-    let product = mapProduct(products.find(item => item.id === productId));
+    const product = mapProduct(productPopUp);
 
     const {amount} = product.price.regularPrice;
 
@@ -57,7 +55,7 @@ const SummaryPopUpContent = (props) => {
                             </div>
                         ))}
                     </Slider>
-                    <BottomButtonBar urlKey={product.url_key} product={product}/>
+                    <BottomButtonBar urlKey={product.url_key} name={product.name}/>
                 </div>
             </div>
         </div>

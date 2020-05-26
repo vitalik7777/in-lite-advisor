@@ -4,7 +4,7 @@ import RichText from "../../../richText";
 import {ProductUsp} from "../productUsp";
 import {BottomButtonBar} from "../bottomButtonBar";
 
-export default function ItemSlide({product, togglePop}) {
+export default function ItemSlide({product}) {
     return (
         <div className="product">
             <ProductImage product={product}/>
@@ -12,7 +12,7 @@ export default function ItemSlide({product, togglePop}) {
                 <div className="product-name">{product.name}</div>
                 <RichText classes="product-description" content={product.short_description}/>
                 <ProductUsp product={product}/>
-                <BottomButtonBar id={product.id} urlKey={product.url_key} togglePop={togglePop}/>
+                <BottomButtonBar id={product.id} urlKey={product.url_key} name={product.name}/>
             </div>
         </div>
     )

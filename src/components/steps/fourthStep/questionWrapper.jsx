@@ -1,39 +1,68 @@
 import React, {useContext} from 'react';
+import useGTM from "../../../hooks/useGTM";
+
 import Question from './question';
 import TopToolbar from "../../toolbar";
-
-import './index.css';
 import StepContext from "../../../context/stepsContext";
+import './index.css';
 
 const QuestionWrapper = (props) => {
-    const {previous} = useContext(StepContext);
+    const {
+        selectedElement,
+        question,
+        indexQuestion,
+        handlePrevious,
+        setNestedQuestion,
+        setIndexCompletedQuestion,
+        setIDLastCategory,
+        setIdFirstSelectedAnswer
+    } = props;
 
-    let getQuestionSelectedGardenElement = (props) => {
-        return props.gardenElements.find(item => item.id === props.selectedGardenElement);
+    const {next, jumpToStep, activeStep} = useContext(StepContext);
+
+    const {dataGTM, actionsGTM} = useGTM();
+
+    const getNextQuestion = id => {
+        return question.children_data.find(item => item.id === id);
     };
 
-// if index = 1 get first level question based on selected garden element
-// if index = 2 or 3 get second or third level question based on previous selected answer.
-    let getQuestion = props => {
-        const question = props.index === 1 ? getQuestionSelectedGardenElement(props) : props.selectedNestedElement;
-        return question.children_data[0];
+    const goToNextQuestion = nextQuestion => {
+        setNestedQuestion(nextQuestion);
+        next();
     };
 
-// get second level of question if you come back from third step.
-    let previousHandler = props => {
-        if (props.index === 3) {
-            const firstLevel = getQuestionSelectedGardenElement(props);
-            const secondLevel = firstLevel.children_data[0].children_data.find(item => item.id === props.idFirstSelectedAnswer);
-            props.setNestedQuestion(secondLevel);
+    const jumpToResultPage = nextQuestion => {
+        setIDLastCategory(nextQuestion.id);
+        setIndexCompletedQuestion(activeStep);
+        jumpToStep(6);
+    };
+
+    const handleSelectAnswer = item => {
+        const nextQuestion = getNextQuestion(item.id);
+
+        if (indexQuestion === 1) {
+            setIdFirstSelectedAnswer(item.id);
         }
-        return previous();
+
+        if (nextQuestion.children_data.length > 0) {
+            goToNextQuestion(nextQuestion);
+        } else {
+            jumpToResultPage(nextQuestion);
+        }
+
+        actionsGTM.push({
+            event: dataGTM.events.selectAnswer,
+            category: selectedElement.name,
+            question: question.name,
+            answer: item.name
+        });
     };
 
     return (
         <div className="main-wrapper fourth-step">
-            <TopToolbar onClick={() => previousHandler(props)}/>
+            <TopToolbar onClick={() => handlePrevious()}/>
             <div className="animation-area">
-                <Question {...props} question={getQuestion(props)}/>
+                <Question selectAnswer={handleSelectAnswer} question={question}/>
             </div>
         </div>
     )
