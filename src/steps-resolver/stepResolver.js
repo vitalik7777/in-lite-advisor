@@ -1,11 +1,14 @@
 import React, {useMemo, useState} from 'react';
 import StepContext from "../context/stepsContext";
+import useGTM from "../hooks/useGTM";
 
 export default function StepResolver({initialised, steps}) {
     const [compState, setCompState] = useState(0);
     const [cssClass, setCssClass] = useState('');
     const [initStatus, setInitStatus] = useState(initialised);
     const componentToRender = steps[compState].component;
+
+    const {dataGTM, actionsGTM} = useGTM();
 
     const getNavStates = (indx, length) => {
         const styles = [];
@@ -57,6 +60,11 @@ export default function StepResolver({initialised, steps}) {
     const previous = () => {
         if (compState > 0) {
             setNavStates(compState - 1);
+
+            actionsGTM.push({
+                event: dataGTM.events.previousStep,
+                label: dataGTM.label.previous + steps[compState].name
+            });
         }
     };
 
