@@ -13,6 +13,9 @@
     animation-delay: 1s;
     border-radius: 3px;
 }
+.modal.ie {
+    overflow: hidden;
+}
 
 .modal_content {
     background: #fff;
@@ -59,11 +62,11 @@
 @keyframes fadeinPopUp {
     0% {
         opacity: 0;
-        transform: translate(-50%, 300px);
+        top: 300px;
     }
     100% {
         opacity: 1;
-        transform: translate(-50%, 0);
+        top: 0;
     }
 }
 

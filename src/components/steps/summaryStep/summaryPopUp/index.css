@@ -67,6 +67,7 @@
 .product-popup .bottom-detail {
     padding: 40px 50px;
     word-break: break-word;
+    overflow: hidden;
 }
 
 .product-popup .slick-slider:before {
@@ -130,6 +131,16 @@
 
 .preview-row {
     outline: none;
+}
+
+@media screen and (min-width: 768px) {
+    .product-popup .slick-slider {
+        overflow: hidden;
+        margin-left: -50px;
+        margin-right: -50px;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
 }
 
 @media screen and (max-width: 767px) {

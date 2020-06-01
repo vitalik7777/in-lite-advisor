@@ -112,6 +112,11 @@
 @media screen and (min-width: 1026px) {
     .in-lite-advisor.last-step {
         padding: 80px 0;
+        height: auto;
+    }
+
+    .in-lite-advisor {
+        height: 100vh;
     }
 }
 

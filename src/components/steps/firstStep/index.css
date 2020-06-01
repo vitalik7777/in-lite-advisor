@@ -51,7 +51,7 @@
 
 .btn.skip-video:after {
     content: '' !important;
-    width: 22px;
+    width: 34px;
     height: 10px;
     position: relative;
     left: 10px;

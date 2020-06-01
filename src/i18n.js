@@ -13,7 +13,7 @@ i18n.use(Backend)
     .init({
         detection: detectionOptions,
         fallbackLng: 'uk',
-        whitelist: ['uk', 'nl', 'se', 'no', 'de', 'us', 'ca', 'fr', 'be'],
+        whitelist: ['uk', 'nl', 'se', 'no', 'de', 'us', 'ca', 'fr', 'be', 'sv'],
         ns: 'translation',
         defaultNS: 'translation',
         debug: false,

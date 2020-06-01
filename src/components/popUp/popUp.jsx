@@ -7,7 +7,7 @@ const PopUp = (props) => {
     return (
         <>
             <div className="overlap-modal"/>
-            <div className="modal">
+            <div className={!!document.documentMode ? ' ie modal' : 'modal'}>
                 <div className="modal_content">
                     <span className="close-popup" {...restProps}/>
                     {children}

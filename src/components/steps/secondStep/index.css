@@ -21,7 +21,7 @@
     height: 0;
 }
 
-.second-step .video-content .embed-container iframe {
+.second-step .video-content iframe {
     position: absolute;
     top: 0;
     left: 0;
